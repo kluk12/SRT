@@ -1,0 +1,28 @@
+
+<form   [formGroup]="gen" (submit)="regSubmit()"  >
+<div class="card flex justify-content-center">
+    <p-selectButton 
+        [options]="dayOptions" 
+        [multiple]="false" 
+        [(ngModel)]="value" 
+        optionLabel="name" 
+        optionValue="value" />
+        <p-selectButton 
+        [options]="typeOptions" 
+        [multiple]="false" 
+        [(ngModel)]="value" 
+        optionLabel="name" 
+        optionValue="value" />
+
+        <p-calendar 
+    inputId="calendar-24h" 
+formControlName="dateFrom"
+ />
+    <p-calendar 
+    inputId="calendar-24h" 
+    formControlName="dateTo"
+ />
+    <input formControlName="title" placeholder="Nazwa" />
+</div>
+<button type="submit" class="btn btn-primary">Generuj</button>
+</form>

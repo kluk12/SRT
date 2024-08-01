@@ -1,0 +1,95 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("./flaticon.ttf?02553db4c5548dc7b9590a8c34269d97") format("truetype"),
+url("./flaticon.woff?02553db4c5548dc7b9590a8c34269d97") format("woff"),
+url("./flaticon.woff2?02553db4c5548dc7b9590a8c34269d97") format("woff2"),
+url("./flaticon.eot?02553db4c5548dc7b9590a8c34269d97#iefix") format("embedded-opentype"),
+url("./flaticon.svg?02553db4c5548dc7b9590a8c34269d97#flaticon") format("svg");
+}
+
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-star:before {
+    content: "\f101";
+}
+.flaticon-kettlebell:before {
+    content: "\f102";
+}
+.flaticon-download:before {
+    content: "\f103";
+}
+.flaticon-up-arrow:before {
+    content: "\f104";
+}
+.flaticon-double-chevron:before {
+    content: "\f105";
+}
+.flaticon-download-1:before {
+    content: "\f106";
+}
+.flaticon-weightlifter:before {
+    content: "\f107";
+}
+.flaticon-twitter:before {
+    content: "\f108";
+}
+.flaticon-linkedin:before {
+    content: "\f109";
+}
+.flaticon-instagram:before {
+    content: "\f10a";
+}
+.flaticon-google-plus:before {
+    content: "\f10b";
+}
+.flaticon-facebook:before {
+    content: "\f10c";
+}
+.flaticon-paper-plane:before {
+    content: "\f10d";
+}
+.flaticon-phone-call:before {
+    content: "\f10e";
+}
+.flaticon-plus:before {
+    content: "\f10f";
+}
+.flaticon-shopping-cart:before {
+    content: "\f110";
+}
+.flaticon-mouse:before {
+    content: "\f111";
+}
+.flaticon-user:before {
+    content: "\f112";
+}
+.flaticon-check:before {
+    content: "\f113";
+}
+.flaticon-stationary-bike:before {
+    content: "\f114";
+}
+.flaticon-time:before {
+    content: "\f115";
+}
+.flaticon-loupe:before {
+    content: "\f116";
+}
+.flaticon-right-arrow:before {
+    content: "\f117";
+}
+.flaticon-left-arrow:before {
+    content: "\f118";
+}
+.flaticon-location:before {
+    content: "\f119";
+}
