@@ -14,11 +14,9 @@ import { RreservationDialogComponent } from '../reservation-dialog/reservation-d
 import { CommonModuleModule } from '../../models/common-module/common-module.module';
 @Component({
   selector: 'app-user-reservation',
-  standalone: true,
- imports: [CommonModuleModule,FullCalendarModule],
+
   templateUrl: './user-reservation.component.html',
   styleUrl: './user-reservation.component.scss',
-  providers: [DialogService]  
 })
 export class UserReservationComponent {
 
@@ -91,7 +89,7 @@ private dialogService: DialogService,
         data: {
             id: id,
         },
-        header:`Rezervacija` ,
+        header:`Rezerwacja` ,
         styleClass: '',
 
     });
@@ -131,10 +129,9 @@ export function createEventId() {
   return String(eventGuid++);
 }
 
-// @NgModule({
-//   declarations: [UserReservationComponent],
-//   imports: [CommonModuleModule,FullCalendarModule, DynamicDialogModule],
-//   exports: [UserReservationComponent]
-
-// })
-// export class UserReservationModule {}
+@NgModule({
+  declarations: [UserReservationComponent],
+  imports: [CommonModuleModule,FullCalendarModule, DynamicDialogModule],
+  exports: [UserReservationComponent]
+})
+export class UserReservationModule {}

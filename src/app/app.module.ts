@@ -11,6 +11,7 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
 import { UserService } from './service/user-service.service';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './layout/login-dialog/login-dialog.component';
+import { UserReservationModule } from './layout/user-reservation/user-reservation.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,8 @@ import { LoginComponent } from './layout/login-dialog/login-dialog.component';
     RouterOutlet,
     CommonModule,
     HttpClientModule,
+    UserReservationModule,
+    FormsModule
   ],
   providers: [UserService,
     provideHttpClient(withFetch())

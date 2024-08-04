@@ -1,6 +1,89 @@
 
-<!-- Registration 10 - Bootstrap Brain Component -->
+        <!-- Pre Loader -->
+        <!-- <div id="preloader">
+            <div id="preloader-area">
+                <div class="pre-line pre-line-1"></div>
+                <div class="pre-line pre-line-2"></div>
+                <div class="pre-line pre-line-3"></div>
+                <div class="pre-line pre-line-4"></div>
+                <div class="pre-line pre-line-5"></div>
+            </div>
+            <div class="preloader-section preloader-left"></div>
+            <div class="preloader-section preloader-right"></div>
+        </div> -->
+        <!-- End Pre Loader -->
+        
+   
 
+        <!-- Inner Banner -->
+        <!-- <div class="inner-banner inner-bg9">
+            <div class="container">
+                <div class="inner-title">
+                    <h3> Login </h3>
+                    <ul>
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li> Login </li>
+                    </ul>
+                </div>
+            </div>
+        </div> -->
+        <!-- Inner Banner End -->
+
+        <!-- User Area -->
+        <div class="user-area pt-100 pb-70">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="user-all-form">
+                            <div class="contact-form">
+                                <h3 class="user-title"> Login</h3>
+                                <form [formGroup]="loginForm"  (submit)="logSubmit($event)">
+                                    <div class="row">
+                                        <div class="col-lg-12 ">
+                                            <div class="form-group">
+                                              <!-- <label for="Login" class="form-label">Login</label> -->
+                                              <input type="text" formControlName="login" class="form-control" name="Login" id="Login" placeholder="Login" required>
+                                                <!-- <input type="text" name="name" id="name" class="form-control" required data-error="Username Or Email Address*" placeholder="Username Or Email Address*"> -->
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                              <!-- <label for="password" class="form-label">Hasło</label> -->
+                                              <input type="password" formControlName="password" class="form-control" name="password" id="password" value="" placeholder="Hasło" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12 form-condition">
+                                            <div class="agree-label">
+                                                <!-- <input type="checkbox" id="chb1"> -->
+                                                <label for="chb1">
+                                                  Nie posiadasz jeszcze konto? <a class="forget" href="/Register"> Zarejestruj się</a>
+                                                </label>
+                                            </div>
+                                        </div>
+        
+                                        <div class="col-lg-12 col-md-12">
+                                          <button  type="submit" class="btn btn-primary btn-lg " >Zaloguj</button>
+                                            <!-- <button type="submit" class="default-btn border-radius-5">
+                                                Login Now
+                                            </button> -->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- User Area End -->
+
+
+     
+<!-- 
 <section class="bg-black py-3 py-md-5 py-xl-8">
   <div class="container">
     <div class="row justify-content-center">
@@ -11,7 +94,6 @@
         <div class="card border border-dark-subtle  rounded-4">
           <div class="card-body p-3 p-md-4 p-xl-5  ">
             <form [formGroup]="loginForm"  (submit)="logSubmit($event)">
-              <!-- <p class="text-center mb-4">Or sign up using email</p> -->
               <div class="row gy-3 overflow-hidden">
                 
                 <div class="col-12">
@@ -41,4 +123,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> --> 

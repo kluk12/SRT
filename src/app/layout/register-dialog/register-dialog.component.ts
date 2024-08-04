@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators ,ReactiveFormsModule} from '@angular/forms';
 import { Logins, User } from '../../models/user.dto';
 import { UserService } from '../../service/user-service.service'; 
+import { CommonModule } from '@angular/common';
+import { ValidationMessageComponent, ValidationMessageModule } from '../validation-message/validation-message.component';
 
 @Component({
   selector: 'app-register-dialog',
-  standalone: true,
-  imports: [ FormsModule,ReactiveFormsModule],
   templateUrl: './register-dialog.component.html',
   styleUrl: './register-dialog.component.scss'
 })
 export class RegisterDialogComponent {
   registerForm: FormGroup= new FormGroup({});
   islogin: boolean = false;
+  isSubmitted: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
 
@@ -23,14 +24,15 @@ export class RegisterDialogComponent {
   }
   InitRegForm() {
     this.registerForm = this.formBuilder.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      login: [null, Validators.required],
+      password: [null, Validators.required],
+      firstName: [null, Validators.required],
+      lastName: [null, Validators.required]
     });
   }
  
     regSubmit() {
+       this.isSubmitted= true;
       console.log(this.registerForm.valid);
     if (this.registerForm.valid) {
       var item = new User(this.registerForm.getRawValue());
@@ -39,7 +41,7 @@ export class RegisterDialogComponent {
 // later
        this.userService.Add(item).subscribe(x=>{
         console.log(x);
-        
+        this.isSubmitted= false;
        }
         );
     }
@@ -78,4 +80,15 @@ export class RegisterDialogComponent {
   // }
 
 
-}
+}@NgModule({
+  declarations: [
+    RegisterDialogComponent
+  ],
+  imports: [
+    CommonModule,
+    ValidationMessageModule,
+    ReactiveFormsModule
+  ],
+  exports: [RegisterDialogComponent],
+})
+export class LoginModule { }

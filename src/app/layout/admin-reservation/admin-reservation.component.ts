@@ -69,8 +69,6 @@ import listPlugin from '@fullcalendar/list';
 
 @Component({
     selector: 'app-admin-reservation',
-    standalone: true,
-    imports: [FullCalendarModule,CommonModule,TrainingGeneratorComponent],
     templateUrl: './admin-reservation.component.html',
     styleUrl: './admin-reservation.component.scss'
   })
@@ -194,9 +192,9 @@ export function createEventId() {
 import { EventInput } from '@fullcalendar/core';
 import { TrainingGeneratorComponent } from '../training-generator/training-generator.component';
 @NgModule({
-  declarations: [],
-  imports: [CommonModule,FullCalendarModule ],
-  exports: [FullCalendarModule, ]
+  declarations: [AdminReservationComponent],
+  imports: [CommonModule,FullCalendarModule ,CommonModule,TrainingGeneratorComponent],
+  exports: [AdminReservationComponent ]
 
 })
 export class AdminReservationModule {}

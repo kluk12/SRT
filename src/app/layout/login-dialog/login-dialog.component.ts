@@ -2,7 +2,7 @@ import { Component, NgModule } from '@angular/core';
 import { Logins, User } from '../../models/user.dto';
 import { UserService } from '../../service/user-service.service';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login-dialog',
@@ -45,8 +45,8 @@ export class LoginComponent {
     LoginComponent
   ],
   imports: [
-    FormsModule,
     CommonModule,
+    ReactiveFormsModule
   ],
   providers: [],
 })

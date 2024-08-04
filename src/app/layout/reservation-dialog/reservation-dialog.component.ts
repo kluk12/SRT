@@ -1,25 +1,23 @@
 import { environment } from '../../../environment';
 import { GenericResponse } from '../../models/GenericResponse';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators ,ReactiveFormsModule} from '@angular/forms';
+import { Component, NgModule } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Logins, User } from '../../models/user.dto';
-import { UserService } from '../../service/user-service.service'; 
+import { UserService } from '../../service/user-service.service';
 import { first, timeout } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import {   } from "@angular/forms";
+import { } from "@angular/forms";
 
 import { DialogService, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { CommonModuleModule } from '../../models/common-module/common-module.module';
+import { ex } from '@fullcalendar/core/internal-common';
 @Component({
   selector: 'app-reservation-dialog',
-  standalone: true,
-  imports: [CommonModuleModule],
   templateUrl: './reservation-dialog.component.html',
   styleUrl: './reservation-dialog.component.scss',
-  providers: [DialogService,] 
 })
 export class RreservationDialogComponent {
-  form: FormGroup= new FormGroup({});
+  form: FormGroup = new FormGroup({});
   islogin: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
@@ -39,12 +37,12 @@ export class RreservationDialogComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       cost: ['323'],
-      aditionalData: ['dasdada' ]
+      aditionalData: ['dasdada']
     });
   }
- 
+
   submit() {
-      console.log(this.form.valid);
+    console.log(this.form.valid);
     if (this.form.valid) {
       var item = new User(this.form.getRawValue());
       console.log(item);
@@ -53,9 +51,9 @@ export class RreservationDialogComponent {
       //  );
       //  this.userService.getValue(item.login,item.password).subscribe(x=>{console.log(x)}
       // );
-       
+
     }
-  } 
+  }
   // regSubmit() {
   //   if (this.registerForm.valid) {
   //     var item = new User(this.registerForm.getRawValue());
@@ -80,9 +78,19 @@ export class RreservationDialogComponent {
   //         Login: user.login,
   //         Email: user.email,
   //         Password: user.password,
-         
+
   //       });
   // }
 
 
 }
+@NgModule({
+  declarations: [
+    RreservationDialogComponent
+  ],
+  imports: [
+    ReactiveFormsModule
+  ],
+  exports: [RreservationDialogComponent]
+})
+export class RreservationDialogModule { }

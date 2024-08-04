@@ -1,0 +1,4 @@
+<small class="p-error" *ngIf="control && (control.touched || control.dirty || (isSubmitted != null && isSubmitted))
+         && control.invalid && (error?control.errors[error]:true)" >
+       <ng-content></ng-content>
+</small>
