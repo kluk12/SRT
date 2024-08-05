@@ -12,6 +12,7 @@ import { UserService } from './service/user-service.service';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './layout/login-dialog/login-dialog.component';
 import { UserReservationModule } from './layout/user-reservation/user-reservation.component';
+import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 
 @NgModule({
   declarations: [
@@ -25,9 +26,12 @@ import { UserReservationModule } from './layout/user-reservation/user-reservatio
     CommonModule,
     HttpClientModule,
     UserReservationModule,
-    FormsModule
+    FormsModule,
+    DynamicDialogModule
   ],
   providers: [UserService,
+    DialogService,
+    
     provideHttpClient(withFetch())
 
   ],

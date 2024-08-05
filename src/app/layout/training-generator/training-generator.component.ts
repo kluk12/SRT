@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { CommonModuleModule } from '../../models/common-module/common-module.module';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../../service/user-service.service';
@@ -7,15 +7,15 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { CalendarApi } from '@fullcalendar/core';
 
 @Component({
   selector: 'app-training-generator',
-  standalone: true,
-  imports: [FormsModule,ReactiveFormsModule,SelectButtonModule,CalendarModule,InputTextModule,CommonModule],
   templateUrl: './training-generator.component.html',
   styleUrl: './training-generator.component.scss'
 })
-export class TrainingGeneratorComponent {
+export class TrainingGeneratorDialogComponent {
   value: string = 'off';
     dayOptions: any[] =
      [
@@ -34,14 +34,18 @@ export class TrainingGeneratorComponent {
       { name: 'Pilates', value: 3 },
       
   ];
+  calendarApi:CalendarApi
     gen: FormGroup= new FormGroup({});
     islogin: boolean = false;
     constructor(private formBuilder: FormBuilder,
       private userService: UserService,
+       public config: DynamicDialogConfig,
+     public ref: DynamicDialogRef,
   
     ) {
     }
     ngOnInit(): void {
+      this.calendarApi = this.config?.data?.calendarApi;
       this.InitRegForm();
     }
     InitRegForm() {
@@ -69,3 +73,10 @@ export class TrainingGeneratorComponent {
   //     }
     } 
 }
+@NgModule({
+  declarations: [TrainingGeneratorDialogComponent],
+  imports: [ FormsModule,ReactiveFormsModule,SelectButtonModule,CalendarModule,InputTextModule,CommonModule],
+  exports: [TrainingGeneratorDialogComponent ]
+
+})
+export class TrainingGeneratorDialogModule {}

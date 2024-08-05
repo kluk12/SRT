@@ -1,71 +1,15 @@
-// import { Component, NgModule, ViewChild } from '@angular/core';
-// import { FullCalendarModule } from '@fullcalendar/angular';
-// import { CalendarOptions ,PluginDef} from '@fullcalendar/core';
-// //import multiMonthPlugin from '@fullcalendar/multimonth';
-// import dayGridPlugin from '@fullcalendar/daygrid';
-// import interactionPlugin from '@fullcalendar/interaction';
-// import { FullCalendarComponent } from '@fullcalendar/angular';
-
-// @Component({
-//   selector: 'app-admin-reservation',
-//   standalone: true,
-//   imports: [AdminReservationModule ],
-//   templateUrl: './admin-reservation.component.html',
-//   styleUrl: './admin-reservation.component.scss'
-// })
-// export class AdminReservationComponent {
-//   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-
-//   calendarOptions: CalendarOptions = {
-//     initialView: 'dayGridMonth',
-//     plugins: [dayGridPlugin]
-//   };
-//   // calendarOptions: CalendarOptions = {
-//   //   initialView: 'dayGridMonth',
-//   //   plugins: [dayGridPlugin, interactionPlugin],
-//   //   dateClick: (arg) => this.handleDateClick(arg),
-//   //   events: [
-//   //     { title: 'event 1', date: '2019-04-01' },
-//   //     { title: 'event 2', date: '2019-04-02' }
-//   //   ]
-//   // };
-//   // handleDateClick(arg) {
-//   //   alert('date click! ' + arg.dateStr)
-//   // }
-// //   calendarOptions: CalendarOptions = {
-// //     headerToolbar: {
-// //         start: 'title',
-// //         center: '',
-// //         end: ''
-// //     },
-// //     initialView: 'dayGridMonth',
-
-// //     //plugins: [multiMonthPlugin],
-// //     // eventClick: this.handleDateClick.bind(this),
-// //     //  multiMonthMaxColumns: 4,
-// //     // multiMonthMinWidth: 200,
-// //     // eventBackgroundColor: 'var(--primary-color)'
-// // };
-// // timetableDates: Date[];
-// // timetableDatesInitialised: boolean = false;
-//  }
-
-//  @NgModule({
-//   declarations: [AdminReservationComponent],
-//   imports: [FullCalendarModule]
-// })
-// export class AdminReservationModule {}
-
-
 import { Component , signal, ChangeDetectorRef, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
+
+import { EventInput } from '@fullcalendar/core';
+import {  TrainingGeneratorDialogComponent, TrainingGeneratorDialogModule } from '../training-generator/training-generator.component';
+import { DialogService,  DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
     selector: 'app-admin-reservation',
@@ -73,7 +17,10 @@ import listPlugin from '@fullcalendar/list';
     styleUrl: './admin-reservation.component.scss'
   })
 export class AdminReservationComponent {
-  calendarVisible = signal(true);
+
+  ref: DynamicDialogRef | undefined;
+  
+  calendarVisible = signal<boolean>(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
        interactionPlugin,
@@ -86,7 +33,7 @@ export class AdminReservationComponent {
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
-    initialView: 'dayGridMonth',
+    initialView: 'timeGridDay',
     initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
@@ -96,6 +43,7 @@ export class AdminReservationComponent {
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
+    //eventContent: this.handleEvents.bind(this),
 
     /* you can update a remote database when these fire:
     eventAdd:
@@ -105,21 +53,44 @@ export class AdminReservationComponent {
   });
   currentEvents = signal<EventApi[]>([]);
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  constructor(private changeDetector: ChangeDetectorRef,
+    // public config: DynamicDialogConfig,
+    // public ref: DynamicDialogRef,
+    private dialogService: DialogService,
+  ) {
   }
   oninit() {
-    const myModal = document.getElementById('staticBackdrop')
-    //const myInput = document.getElementById('staticBackdrop')
-    console.log(myModal)
-    myModal.addEventListener('shown.bs.modal', () => {
-     // myInput.focus()
-    })
+    // const myModal = document.getElementById('staticBackdrop')
+    // //const myInput = document.getElementById('staticBackdrop')
+    // console.log(myModal)
+    // myModal.addEventListener('shown.bs.modal', () => {
+    //  // myInput.focus()
+    // })
     // this.calendarOptions.update((options) => ({
     //   ...options,
     //   initialView: 'dayGridMonth',
     // }));
   }
+  ngAfterViewInit() {
+    this.addTouchHandlers();
+  }
 
+  addTouchHandlers() {
+    const events = document.querySelectorAll('.fc-event');
+
+    events.forEach(event => {
+      let timer;
+      event.addEventListener('touchstart', (e) => {
+        timer = setTimeout(() => {
+          alert('Long press detected on event: ' + event.innerHTML);
+        }, 500); // Dłuższe przytrzymanie trwa 1000 ms
+      });
+
+      event.addEventListener('touchend', (e) => {
+        clearTimeout(timer); // Anuluj dłuższe przytrzymanie, jeśli dotyk zostanie zwolniony przed upływem 1000 ms
+      });
+    });
+  }
   handleCalendarToggle() {
     this.calendarVisible.update((bool) => !bool);
   }
@@ -133,20 +104,20 @@ export class AdminReservationComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
 
-    const title = prompt('Please enter a new title for your event');
+   // const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
-
+    this.show(calendarApi);
     calendarApi.unselect(); // clear date selection
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay,
+    //   });
+    // }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
@@ -159,8 +130,40 @@ export class AdminReservationComponent {
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
+  show(calendarApi:CalendarApi) {
+    this.ref = this.dialogService.open(TrainingGeneratorDialogComponent, {
+       // width: '400px',
+        data: {
+          calendarApi: calendarApi,
+            // shuntingRequestId: shuntingRequestId,
+          
+        },
+        header: 'Dodaj/Edytuj trening ',
+        styleClass: 'submanuver-add-edit-dialog',
+        contentStyle: {  'overflow': 'auto' },
+    });
+    this.ref.onClose.subscribe((w) => {
+        if (w)
+            console.log(w);
+        // calendarApi.addEvent({
+        //   id: createEventId(),
+        //   title,
+        //   start: selectInfo.startStr,
+        //   end: selectInfo.endStr,
+        //   allDay: selectInfo.allDay,
+        // });
+           // this.loadItems(this.lastTableLazyLoadEvent);
+    });
+  }
 }
+@NgModule({
+  declarations: [AdminReservationComponent],
+  imports: [CommonModule,FullCalendarModule ,CommonModule,TrainingGeneratorDialogModule,DynamicDialogModule,],
+  providers: [DialogService],
+  exports: [AdminReservationComponent ]
 
+})
+export class AdminReservationModule {}
 
 
 let eventGuid = 0;
@@ -189,12 +192,4 @@ export const INITIAL_EVENTS: EventInput[] = [
 export function createEventId() {
   return String(eventGuid++);
 }
-import { EventInput } from '@fullcalendar/core';
-import { TrainingGeneratorComponent } from '../training-generator/training-generator.component';
-@NgModule({
-  declarations: [AdminReservationComponent],
-  imports: [CommonModule,FullCalendarModule ,CommonModule,TrainingGeneratorComponent],
-  exports: [AdminReservationComponent ]
 
-})
-export class AdminReservationModule {}

@@ -1,4 +1,3 @@
-import { TrainingGeneratorComponent } from './layout/training-generator/training-generator.component';
 import { LoginComponent } from './layout/login-dialog/login-dialog.component';
 import { AdminReservationComponent } from './layout/admin-reservation/admin-reservation.component';
 import { RegisterDialogComponent } from './layout/register-dialog/register-dialog.component';
@@ -17,20 +16,10 @@ export const routes: Routes = [
     { path: 'Login', component: LoginComponent }, 
     { path: 'ReservationAdmin', component: AdminReservationComponent }, 
     { path: 'Reservation', component:UserReservationComponent }, 
-    { path: 'Generator', component:TrainingGeneratorComponent }, 
+    // { path: 'Generator', component:TrainingGeneratorComponent }, 
     { path: 'About', component:AboutComponent }, 
     { path: 'BmiCalculator', component:BmiCalculatorComponent }, 
     { path: 'Home', component:HomeComponent }, 
      { path: 'Team', component:TeamComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
-    // { path: 'Generator', component:TrainingGeneratorComponent }, 
+  
 ];
