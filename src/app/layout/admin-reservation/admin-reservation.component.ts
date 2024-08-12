@@ -131,29 +131,29 @@ export class AdminReservationComponent {
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
   show(calendarApi:CalendarApi) {
-    this.ref = this.dialogService.open(TrainingGeneratorDialogComponent, {
-       // width: '400px',
-        data: {
-          calendarApi: calendarApi,
-            // shuntingRequestId: shuntingRequestId,
+    // this.ref = this.dialogService.open(TrainingGeneratorDialogComponent, {
+    //    // width: '400px',
+    //     data: {
+    //       calendarApi: calendarApi,
+    //         // shuntingRequestId: shuntingRequestId,
           
-        },
-        header: 'Dodaj/Edytuj trening ',
-        styleClass: 'submanuver-add-edit-dialog',
-        contentStyle: {  'overflow': 'auto' },
-    });
-    this.ref.onClose.subscribe((w) => {
-        if (w)
-            console.log(w);
-        // calendarApi.addEvent({
-        //   id: createEventId(),
-        //   title,
-        //   start: selectInfo.startStr,
-        //   end: selectInfo.endStr,
-        //   allDay: selectInfo.allDay,
-        // });
-           // this.loadItems(this.lastTableLazyLoadEvent);
-    });
+    //     },
+    //     header: 'Dodaj/Edytuj trening ',
+    //     styleClass: 'submanuver-add-edit-dialog',
+    //     contentStyle: {  'overflow': 'auto' },
+    // });
+    // this.ref.onClose.subscribe((w) => {
+    //     if (w)
+    //         console.log(w);
+    //     // calendarApi.addEvent({
+    //     //   id: createEventId(),
+    //     //   title,
+    //     //   start: selectInfo.startStr,
+    //     //   end: selectInfo.endStr,
+    //     //   allDay: selectInfo.allDay,
+    //     // });
+    //        // this.loadItems(this.lastTableLazyLoadEvent);
+    // });
   }
 }
 @NgModule({
