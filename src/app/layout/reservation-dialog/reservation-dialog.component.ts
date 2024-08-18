@@ -2,7 +2,7 @@ import { environment } from '../../../environment';
 import { GenericResponse } from '../../models/GenericResponse';
 import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Logins, User } from '../../models/user.dto';
+import { Logins, User } from '../../models/models.dto';
 import { UserService } from '../../service/user-service.service';
 import { first, timeout } from 'rxjs';
 import { HttpClient, HttpClientModule } from '@angular/common/http';

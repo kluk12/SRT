@@ -1,77 +1,135 @@
-
 <!-- <full-calendar #calendar [options]="calendarOptions"></full-calendar> -->
 
 <div class='demo-app'>
-<!-- <app-training-generator></app-training-generator> -->
-    <div class='demo-app-sidebar'>
-      <div class='demo-app-sidebar-section'>
-        <h2>Instructions</h2>
-        <ul>
-          <li>Select dates and you will be prompted to create a new event</li>
-          <li>Drag, drop, and resize events</li>
-          <li>Click an event to delete it</li>
-        </ul>
-      </div>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-        Launch static backdrop modal
-      </button>
-      
-      <!-- Modal -->
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+  <!-- <app-training-generator></app-training-generator> -->
+  <div class='demo-app-sidebar'>
+    <div class='demo-app-sidebar-section'>
+      <h2>Instructions</h2>
+      <ul>
+        <li>Select dates and you will be prompted to create a new event</li>
+        <li>Drag, drop, and resize events</li>
+        <li>Click an event to delete it</li>
+      </ul>
+    </div>
+    <button #modalbutton type="button" (click)="event()" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      Launch static backdrop modal
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" 
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Dodaj Trening</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div>
+            <!-- class="modal-body" -->
+
+            <form [formGroup]="formData" (submit)="Submit()">
+              <div class="card flex justify-content-center col-12">
+                <div class="field grid m-2">
+                  <label for="model" class="col-12 mb-2 md:col-4 md:mb-0 lg:col-3">Data od</label>
+                  <div class="col-12 md:col-8 lg:col-9">
+                    <p-calendar inputId="calendar-24h" formControlName="dateFrom" [showIcon]="true"
+                      [timeOnly]="true"></p-calendar>
+                    <!-- <div>
+                          <validation-message  controlName="model" error="required" [isSubmitted]="true">
+                              Field "Model" is required</validation-message>
+                      </div> -->
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12 mb-2 ">Data do</label>
+                  <div class="col-12">
+                    <p-calendar inputId="calendar-24h" formControlName="dateTo" [showIcon]="true" [timeOnly]="true" />
+                    <!-- <div>
+                        <validation-message  controlName="model" error="required" [isSubmitted]="true">
+                            Field "Model" is required</validation-message>
+                    </div> -->
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Cena</label>
+                  <div class="col-12 ">
+                    <p-inputNumber class="w-100" formControlName="price" mode="currency" inputId="currency-Polish"
+                      currency="PLN" name="currency-Polish" currencyDisplay="code" />
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Ilość osób</label>
+                  <div class="col-12 ">
+                    <p-inputNumber inputId="integeronly" formControlName="numberPeople" />
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Typ Treningu</label>
+                  <div class="col-12 ">
+                    <p-selectButton [options]="typeOptions" (onOptionClick)="onOptionClick($event)" [multiple]="false"
+                      formControlName="typeId" optionLabel="name" optionValue="value" />
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Dodatkowe informacje</label>
+                  <div class="col-12 ">
+                    <textarea rows="5" cols="30" pInputTextarea formControlName="textAddition"></textarea>
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Lokalizacja</label>
+                  <div class="col-12 ">
+                    <p-dropdown formControlName="locationId" [options]="LocationOptions" optionLabel="name" optionValue="id"
+                     />
+                  </div>
+                </div>
+                <div class="field grid m-2">
+                  <label for="model" class="col-12  ">Tytuł</label>
+                  <div class="col-12 ">
+                    <input formControlName="title" placeholder="Nazwa" />
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="Submit()">Generuj</button>
           </div>
         </div>
       </div>
-      <div class='demo-app-sidebar-section'>
-        <label>
-          <input
-            type='checkbox'
-            [checked]='calendarVisible()'
-            (change)='handleCalendarToggle()'
-          />
-          toggle whole calendar
-        </label>
-      </div>
-      <div class='demo-app-sidebar-section'>
-        <label>
-          <input
-            type='checkbox'
-            [checked]='calendarOptions().weekends'
-            (change)='handleWeekendsToggle()'
-          />
-          toggle weekends
-        </label>
-      </div>
-      <div class='demo-app-sidebar-section'>
-        <h2>All Events ({{currentEvents().length}})</h2>
-        <ul>
-          <li *ngFor='let event of currentEvents()'>
-            <b>{{event.startStr}}</b>
-            <i>{{event.title}}</i>
-          </li>
-        </ul>
-      </div>
     </div>
-  
-    <div class='demo-app-main'>
-      <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
-        <ng-template #eventContent let-arg>
-          <b>{{ arg.timeText }}</b>
-          <i>{{ arg.event.title }}</i>
-        </ng-template>
-      </full-calendar>
+    <div class='demo-app-sidebar-section'>
+      <label>
+        <input type='checkbox' [checked]='calendarVisible()' (change)='handleCalendarToggle()' />
+        toggle whole calendar
+      </label>
     </div>
-  
+    <div class='demo-app-sidebar-section'>
+      <label>
+        <input type='checkbox' [checked]='calendarOptions().weekends' (change)='handleWeekendsToggle()' />
+        toggle weekends
+      </label>
+    </div>
+    <div class='demo-app-sidebar-section'>
+      <h2>All Events ({{currentEvents().length}})</h2>
+      <ul>
+        <li *ngFor='let event of currentEvents()'>
+          <b>{{event.startStr}}</b>
+          <i>{{event.title}}</i>
+        </li>
+      </ul>
+    </div>
   </div>
+
+  <div class='demo-app-main'>
+    <full-calendar *ngIf='calendarVisible()' [options]='calendarOptions()'>
+      <ng-template #eventContent let-arg>
+        <b>{{ arg.timeText }}</b>
+        <i>{{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
+  </div>
+
+</div>

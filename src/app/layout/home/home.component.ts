@@ -1,6 +1,8 @@
+import { TreningService } from './../../service/TreningService';
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, signal, ViewChild, viewChild } from '@angular/core';
 import { Data } from '@angular/router';
+import { TrainingWeek } from '../../models/models.dto';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +10,22 @@ import { Data } from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+  training: TrainingWeek;
   hours = [
     { time: '6 AM - 7 AM', activities: ['Cardio', '', 'Yoga', 'Cardio', '', '', 'Yoga'] },
     { time: '7 AM - 8 AM', activities: ['', 'Weight Lifting', 'Yoga', '', 'Cardio', 'Yoga', ''] },
     // Add more hours as needed
   ];
 loading=signal<boolean>(true);
-  constructor( ) { }
+
+
+constructor(private treningService: TreningService) { }
 
   ngOnInit() {
+    this.treningService.find().subscribe((x) => {
+      this.training = new TrainingWeek( x.data);
+      console.log(x,this.training);
+    });
 console.log('HomeComponent');
   }
 

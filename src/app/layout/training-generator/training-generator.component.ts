@@ -32,7 +32,6 @@ export class TrainingGeneratorDialogComponent {
       { name: 'Fitness', value: 1 },
       { name: 'Zd.Kręgosłup', value: 2 },
       { name: 'Pilates', value: 3 },
-      
   ];
   calendarApi:CalendarApi
     gen: FormGroup= new FormGroup({});

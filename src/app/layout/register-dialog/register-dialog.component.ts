@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators ,ReactiveFormsModule} from '@angular/forms';
-import { Logins, User } from '../../models/user.dto';
+import { Logins, User } from '../../models/models.dto';
 import { UserService } from '../../service/user-service.service'; 
 import { CommonModule } from '@angular/common';
 import { ValidationMessageComponent, ValidationMessageModule } from '../validation-message/validation-message.component';
