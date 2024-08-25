@@ -2,7 +2,7 @@ import { TreningService } from './../../service/TreningService';
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, signal, ViewChild, viewChild } from '@angular/core';
 import { Data } from '@angular/router';
-import { TrainingWeek } from '../../models/models.dto';
+import { HourlyActivities, Training, TrainingWeek } from '../../models/models.dto';
 
 @Component({
   selector: 'app-home',
@@ -10,23 +10,42 @@ import { TrainingWeek } from '../../models/models.dto';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  training: TrainingWeek;
+  weekDates: { day: string, date: Date }[] = [];
+  trainingWeek: TrainingWeek;
   hours = [
-    { time: '6 AM - 7 AM', activities: ['Cardio', '', 'Yoga', 'Cardio', '', '', 'Yoga'] },
-    { time: '7 AM - 8 AM', activities: ['', 'Weight Lifting', 'Yoga', '', 'Cardio', 'Yoga', ''] },
-    // Add more hours as needed
+    // { time: '6 AM - 7 AM', activities: ['Cardio', '', 'Yoga', 'Cardio', '', '', 'Yoga'] },
+    // { time: '7 AM - 8 AM', activities: ['', 'Weight Lifting', 'Yoga', '', 'Cardio', 'Yoga', ''] },
   ];
 loading=signal<boolean>(true);
-
 
 constructor(private treningService: TreningService) { }
 
   ngOnInit() {
+    this.calculateWeekDates();
+    this.trainingWeek = {
+      currentWeekItems: [],
+      nextWeekItems: []
+    }
     this.treningService.find().subscribe((x) => {
-      this.training = new TrainingWeek( x.data);
-      console.log(x,this.training);
+      if(x.success) {
+        this.trainingWeek = x.data;
+        this.trainingWeek.currentWeekItems = x.data.currentWeekItems;
+        this.trainingWeek.currentWeekItems.forEach(x => {
+          var tmp = x.activities.shift();
+          if (tmp !== undefined) {
+            x.activities.push(tmp);
+          }
+        })
+        this.trainingWeek.nextWeekItems = x.data.nextWeekItems;
+        this.trainingWeek.nextWeekItems.forEach(x => {
+          var tmp = x.activities.shift();
+          if (tmp !== undefined) {
+            x.activities.push(tmp);
+          }
+        })
+        console.log(this.trainingWeek)
+      }
     });
-console.log('HomeComponent');
   }
 
   ngAfterViewInit() {
@@ -40,6 +59,33 @@ console.log('HomeComponent');
       default: return 'Unknown';
     }
   }
+
+
+  private calculateWeekDates(): void {
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
+
+    // Get the start of the week (Monday)
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1));
+
+    // Calculate dates for each day of the week
+    this.weekDates = [];
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      this.weekDates.push({
+        day: this.getDayName(date),
+        date: date
+      });
+    }
+  }
+
+  private getDayName(date: Date): string {
+    const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    return dayNames[date.getDay() === 0 ? 6 : date.getDay() - 1]; 
+  }
+  
 }
 @NgModule({
   declarations: [HomeComponent],
