@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from './service/user-service.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Srt';
+  islogin: boolean = false;
+  loginSubject$ = this.userService.loginSubject$.subscribe(x => {
+    this.islogin = x != null;
+  });
+  constructor(
+    private userService: UserService,
+  ){
+  }
+
+  OnInit(): void {
+  }
 }

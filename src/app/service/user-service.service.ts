@@ -13,12 +13,12 @@ export class UserService {
 
   private hash: string = "D2F1E5A3-4D3A-4A3A-8D3A-4D3A4A3A8D3A";
 
-  private loginSubject: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  private loginSubject: BehaviorSubject<User> = new BehaviorSubject<User|null>(null);
 
   loginSubject$ = this.loginSubject.asObservable();
   constructor(private http: HttpClient,
   ) { }
-  
+
   setLogin(user: User): void {
     this.loginSubject.next(user);
     sessionStorage.setItem(

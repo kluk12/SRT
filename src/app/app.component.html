@@ -1,7 +1,5 @@
-
-
-          <!-- Pre Loader -->
-          <!-- <div id="preloader">
+<!-- Pre Loader -->
+<!-- <div id="preloader">
             <div id="preloader-area">
                 <div class="pre-line pre-line-1"></div>
                 <div class="pre-line pre-line-2"></div>
@@ -12,44 +10,44 @@
             <div class="preloader-section preloader-left"></div>
             <div class="preloader-section preloader-right"></div>
         </div> -->
-        <!-- End Pre Loader -->
-        
-      <!-- Start Navbar Area -->
-      <div class="navbar-area">
-        <div class="mobile-responsive-nav">
-            <div class="container">
-                <div class="mobile-responsive-menu">
-                    <div class="logo">
-                        <a href="index.html">
-                            <img src="assets/images/logos/small-white-logo.png" alt="logo">
-                        </a>
-                    </div>
-                    <li class="nav-item">
-                      <a href="/Home" class="nav-link">
-                          Home
-                      </a>
-                  </li>
-                </div>
-                
-            </div>
-        </div>
+<!-- End Pre Loader -->
 
-        <!-- Menu For Desktop Device -->
-        <div class="desktop-nav nav-area">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-md navbar-light ">
-                    <a class="navbar-brand" href="/Home">
-                        <img src="assets/images/logos/logo.png" alt="Logo">
+<!-- Start Navbar Area -->
+<div class="navbar-area">
+    <div class="mobile-responsive-nav">
+        <div class="container">
+            <div class="mobile-responsive-menu">
+                <div class="logo">
+                    <a href="/Home">
+                        <img src="assets/images/logos/small-white-logo.png" alt="logo">
                     </a>
+                </div>
+                <li class="nav-item">
+                    <a href="/Home" class="nav-link">
+                        Home
+                    </a>
+                </li>
+            </div>
 
-                    <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
-                        <ul class="navbar-nav m-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link dropdown-toggle">
-                                   Portfolio
-                               </a>
-                               <ul class="dropdown-menu">
-                                   <!-- <li class="nav-item">
+        </div>
+    </div>
+
+    <!-- Menu For Desktop Device -->
+    <div class="desktop-nav nav-area">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md navbar-light ">
+                <a class="navbar-brand" href="/Home">
+                    <img src="assets/images/logos/logo.png" alt="Logo">
+                </a>
+
+                <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link dropdown-toggle">
+                                Portfolio
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- <li class="nav-item">
                                        <a href="portfolio.html" class="nav-link">
                                            Portfolio
                                        </a>
@@ -59,39 +57,39 @@
                                            Portfolio Details 
                                        </a>
                                    </li> -->
-                                   <li class="nav-item">
+                                <li class="nav-item">
                                     <a href="/ReservationAdmin" class="nav-link">
                                         Dodaj Rezerwacja
                                     </a>
                                 </li>
-                                   
-                               </ul>
-                           </li>
 
-                           <li class="nav-item">
-                               <a href="#" class="nav-link dropdown-toggle">
-                                   Classes
-                              </a>
-                              <ul class="dropdown-menu">
-                                  <li class="nav-item">
-                                      <a href="classes.html" class="nav-link">
-                                           Classes
-                                      </a>
-                                  </li>
-                                  <li class="nav-item">
-                                      <a href="class-details.html" class="nav-link">
-                                           Class Details 
-                                      </a>
-                                  </li>
-                              </ul>
-                          </li> 
-                          <li class="nav-item">
-                            
-                              <!-- <a href="/Home" class="nav-link">
+                            </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link dropdown-toggle">
+                                Classes
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a href="classes.html" class="nav-link">
+                                        Classes
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="class-details.html" class="nav-link">
+                                        Class Details
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+
+                            <!-- <a href="/Home" class="nav-link">
                                   Home
                               </a> -->
-                          </li>
-                            <!-- <li class="nav-item">
+                        </li>
+                        <!-- <li class="nav-item">
                                 <a href="#" class="nav-link dropdown-toggle">
                                     Home 
                                 </a>
@@ -114,7 +112,7 @@
                                 </ul>
                             </li> -->
 
-                            <!-- <li class="nav-item">
+                        <!-- <li class="nav-item">
                                <a href="#" class="nav-link dropdown-toggle active">
                                     Pages 
                                 </a>
@@ -162,7 +160,7 @@
                            
 
                         
-                            <!-- <li class="nav-item">
+                         <li class="nav-item">
                                   <a href="#" class="nav-link dropdown-toggle">
                                     Blog                                   </a>
                                 <ul class="dropdown-menu">
@@ -205,27 +203,28 @@
                                 </ul>
                             </li> -->
 
-                            <li class="nav-item">
-                                <a href="contact.html" class="nav-link">
-                                    Contact Us
-                                </a>
-                            </li>
-                            
-                            <li class="nav-item">
-                              <a href="/Login" class="nav-link">
-                                Login
-                              </a>
-                          </li>
-                      
-                          <li class="nav-item">
-                            <a href="/Register" class="nav-link">
-                              Register
+                        <li class="nav-item">
+                            <a href="contact.html" class="nav-link">
+                                Contact Us
                             </a>
                         </li>
-                        </ul>
+                        @if (islogin) {
+                        <li class="nav-item">
+                            <a href="/Login" class="nav-link">
+                                Login
+                            </a>
+                        </li>
 
-                        <div class="others-options d-flex align-items-center">
-                            <!-- <div class="optional-item">
+                        <li class="nav-item">
+                            <a href="/Register" class="nav-link">
+                                Register
+                            </a>
+                        </li>
+                        }
+                    </ul>
+
+                    <div class="others-options d-flex align-items-center">
+                        <!-- <div class="optional-item">
                                 <div class="search-btn">
                                     <a class="#" href="#searchmodal" data-bs-toggle="modal" data-bs-target="#searchmodal">
                                         <i class='flaticon-loupe'></i>
@@ -239,24 +238,24 @@
                                 </a>
                             </div> -->
 
-                            <div class="optional-item">
-                                <div class="side-menu">
-                                    <a class="#" href="#sidebarmodal" data-bs-toggle="modal" data-bs-target="#sidebarmodal">
-                                        <i class="ri-menu-line"></i>
-                                    </a>
-                                </div>
+                        <div class="optional-item">
+                            <div class="side-menu">
+                                <a class="#" href="#sidebarmodal" data-bs-toggle="modal" data-bs-target="#sidebarmodal">
+                                    <i class="ri-menu-line"></i>
+                                </a>
                             </div>
-                        </div> 
-                        <div class="mobile-nav">
-                            <div class="mobile-other d-flex align-items-center">
-                               <!-- <div class="optional-item">
+                        </div>
+                    </div>
+                    <!-- <div class="mobile-nav">
+                        <div class="mobile-other d-flex align-items-center">
+                            <div class="optional-item">
                                     <div class="search-btn">
                                         <a class="#" href="#searchmodal" data-bs-toggle="modal" data-bs-target="#searchmodal">
                                             <i class='flaticon-loupe'></i>
                                         </a>
                                     </div>
-                                </div> -->
-<!-- 
+                                </div> 
+                          
                                 <div class="optional-item">
                                   <a class="optional-item-cart color-ffffff" href="/Login">
                                       <i class='flaticon-shopping-cart'></i>
@@ -268,23 +267,23 @@
                                     <i class='flaticon-shopping-cart'></i>
                                     <span>Register</span>
                                 </a>
-                            </div>  -->
+                            </div>  
 
-                                <!-- <div class="optional-item">
+                           <div class="optional-item">
                                     <div class="side-menu">
                                         <a class="#" href="#sidebarmodal" data-bs-toggle="modal" data-bs-target="#sidebarmodal">
                                             <i class="ri-menu-line"></i>
                                         </a>
                                     </div>
-                                </div> -->
-                            </div>
-                        </div> 
-                    </div>
-                </nav>
-            </div>
+                                </div> 
+                        </div>
+                    </div> -->
+                </div>
+            </nav>
         </div>
     </div>
-    <!-- End Navbar Area -->
+</div>
+<!-- End Navbar Area -->
 
 
 
