@@ -28,13 +28,20 @@ export class UserService {
   }
 
   getToken(): User | null {
-    const token = JSON.parse(sessionStorage.getItem('token')) ?? null;
+    const token = JSON.parse(this.getTokenLocalStorage()) ?? null;
     return token ? new User(token) : null;
   }
 
   isLogged(): boolean {
-    return sessionStorage.getItem('token') != null;
+    return this.getTokenLocalStorage() != null;
   }
+  getTokenLocalStorage(): string | null {
+    return localStorage.getItem('token') ?? null;
+  }
+  // getTokenSessionStorage(): boolean {
+  //   return sessionStorage.getItem('token') != null;
+  // }
+ 
 
   logout(): void {
     sessionStorage.removeItem('token');
@@ -67,6 +74,7 @@ export class UserService {
       `${baseUrl}/Edit`,
       {
         Phone: user.phone,
+        email: user.email,
         FirstName: user.firstName,
         LastName: user.lastName,
         Login: user.login,
@@ -80,6 +88,7 @@ export class UserService {
       `${baseUrl}/Add`,
       {
         FirstName: user.firstName,
+        email: user.email,
         LastName: user.lastName,
         Login: user.login,
         Password: user.password,

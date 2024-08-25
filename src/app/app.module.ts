@@ -8,7 +8,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
 import { routes } from './app.routes';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
-import { UserService } from './service/user-service.service';
+import { UserService } from './service/user-service';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './layout/login/login.component';
 import { UserReservationModule } from './layout/user-reservation/user-reservation.component';

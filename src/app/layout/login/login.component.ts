@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Logins, User } from '../../models/models.dto';
-import { UserService } from '../../service/user-service.service';
+import { UserService } from '../../service/user-service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationMessageModule } from '../validation-message/validation-message.component';
@@ -42,7 +42,7 @@ export class LoginComponent {
       this.userService.login(item.login, item.password).subscribe(x => {
         if (x.data) {
           //localStorage.setItem('token',this.transformToJson(x.data));
-          sessionStorage.setItem('token', this.transformToJson(x.data));
+          localStorage.setItem('token', this.transformToJson(x.data));
           const token = this.userService.getToken()
           if (token) {
             this.userService.setLogin(token);

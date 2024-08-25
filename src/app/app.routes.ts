@@ -16,7 +16,6 @@ export const routes: Routes = [
     { path: 'Login', component: LoginComponent }, 
     { path: 'AdminTrainingCreator', component: AdminTrainingCreatorComponent }, 
     { path: 'Reservatiotn', component:UserReservationComponent }, 
-    // { path: 'Generaor', component:TrainingGeneratorComponent }, 
     { path: 'About', component:AboutComponent }, 
     { path: 'BmiCalculator', component:BmiCalculatorComponent }, 
     { path: 'Home', component:HomeComponent }, 
