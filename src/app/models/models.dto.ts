@@ -27,9 +27,10 @@ export class User {
     password: string;
     isDeleted: boolean | null;
     isAdmin: boolean | null;
+    name: string;
     constructor(init?: Partial<User>) {
         Object.assign(this, init);
-
+        this.name = this.firstName + ' ' + this.lastName;
     }
 }
 export class Logins {
@@ -91,6 +92,26 @@ export class Location {
     }
 }
 
+export class Reservation {
+    id: number;
+    price: number | null;
+    isDelete: boolean | null;
+    remove: string | null;
+    create: string | null;
+    beforStartTimeInHour: number | null;
+    whenCloseRezerwation: number | null;
+    locationId: number | null;
+    type: number | null;
+    paid: boolean | null;
+    trainingId: number | null;
+    userId: number | null;
+    user: User | null;
+    constructor(init?: Partial<Reservation>) {
+        Object.assign(this, init);
+       if(init?.user)
+        this.user = new User(init?.user);
+    }
+}
 
 export const LocationOptions: Location[] =
     [

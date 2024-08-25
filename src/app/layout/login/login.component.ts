@@ -1,6 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { Logins, User } from '../../models/models.dto';
-import { UserService } from '../../service/user-service.service';
+import { UserService } from '../../service/user-service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationMessageModule } from '../validation-message/validation-message.component';
@@ -35,32 +35,42 @@ export class LoginComponent {
   }
   logSubmit(event: SubmitEvent) {
     this.isSubmitted = true;
-    console.log(this.loginForm.valid, this.loginForm.getRawValue(),this.userService.isLogged() , this.userService.getToken());
+    console.log(this.loginForm.valid, this.loginForm.getRawValue(), this.userService.isLogged(), this.userService.getToken());
     if (this.loginForm.valid) {
       var item = new Logins(this.loginForm.getRawValue());
       console.log(item);
       this.userService.login(item.login, item.password).subscribe(x => {
-
-        //localStorage.setItem('token',this.transformToJson(x.data));
-        sessionStorage.setItem('token', this.transformToJson(x.data));
-        console.log(x)
-        this.isSubmitted = false;
+        if (x.data) {
+          //localStorage.setItem('token',this.transformToJson(x.data));
+          localStorage.setItem('token', this.transformToJson(x.data));
+          const token = this.userService.getToken()
+          if (token) {
+            this.userService.setLogin(token);
+            console.log("token",token)
+          }
+        } else {
+          console.log("null",x)
+          this.isSubmitted = false;
+          this.userService.setLogin(null);
+        }
       }
       );
     } else {
       sessionStorage.setItem('token', null);
+      this.userService.setLogin(null);
+
     }
   }
 }
-  @NgModule({
-    declarations: [
-      LoginComponent
-    ],
-    imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      ValidationMessageModule,
-    ],
-    providers: []
-  })
-  export class LoginModule { }
+@NgModule({
+  declarations: [
+    LoginComponent
+  ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ValidationMessageModule,
+  ],
+  providers: []
+})
+export class LoginModule { }

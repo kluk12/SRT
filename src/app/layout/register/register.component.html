@@ -25,7 +25,12 @@
                                       <validation-message  controlName="lastName" error="required" [isSubmitted]="isSubmitted" >Nazwisko jest wymagane</validation-message>
                                     </div>
                                 </div>
-
+                                <div class="col-12">
+                                  <div class="form-group">
+                                    <input type="text"  formControlName="email"  class="form-control" name="email" id="email"  placeholder="email" >
+                                    <validation-message  controlName="email" error="required" [isSubmitted]="isSubmitted" [formGroup]="registerForm" >Email jest wymagane</validation-message>
+                                  </div>
+                              </div>
                                 <div class="col-12">
                                     <div class="form-group">
                                       <input type="text"  formControlName="login"  class="form-control" name="Login" id="Login"  placeholder="Login" >

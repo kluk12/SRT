@@ -1,7 +1,7 @@
 import { Component, NgModule } from '@angular/core';
 import { CommonModuleModule } from '../../models/common-module/common-module.module';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UserService } from '../../service/user-service.service';
+import { UserService } from '../../service/user-service';
 import { CommonModule } from '@angular/common';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';

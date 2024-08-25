@@ -13,12 +13,12 @@ export class UserService {
 
   private hash: string = "D2F1E5A3-4D3A-4A3A-8D3A-4D3A4A3A8D3A";
 
-  private loginSubject: BehaviorSubject<User> = new BehaviorSubject<User>(new User());
+  private loginSubject: BehaviorSubject<User> = new BehaviorSubject<User|null>(null);
 
   loginSubject$ = this.loginSubject.asObservable();
   constructor(private http: HttpClient,
   ) { }
-  
+
   setLogin(user: User): void {
     this.loginSubject.next(user);
     sessionStorage.setItem(
@@ -28,13 +28,20 @@ export class UserService {
   }
 
   getToken(): User | null {
-    const token = JSON.parse(sessionStorage.getItem('token')) ?? null;
+    const token = JSON.parse(this.getTokenLocalStorage()) ?? null;
     return token ? new User(token) : null;
   }
 
   isLogged(): boolean {
-    return sessionStorage.getItem('token') != null;
+    return this.getTokenLocalStorage() != null;
   }
+  getTokenLocalStorage(): string | null {
+    return localStorage.getItem('token') ?? null;
+  }
+  // getTokenSessionStorage(): boolean {
+  //   return sessionStorage.getItem('token') != null;
+  // }
+ 
 
   logout(): void {
     sessionStorage.removeItem('token');
@@ -67,6 +74,7 @@ export class UserService {
       `${baseUrl}/Edit`,
       {
         Phone: user.phone,
+        email: user.email,
         FirstName: user.firstName,
         LastName: user.lastName,
         Login: user.login,
@@ -80,6 +88,7 @@ export class UserService {
       `${baseUrl}/Add`,
       {
         FirstName: user.firstName,
+        email: user.email,
         LastName: user.lastName,
         Login: user.login,
         Password: user.password,
