@@ -10,31 +10,32 @@
                 <div class="user-all-form">
                     <div class="contact-form">
                         <h3 class="user-title"> Rejstracja </h3>
-                        <form id="contactForm"  [formGroup]="registerForm" (submit)="regSubmit()"  >
+                        <form id="contactForm"  [formGroup]="registerForm" (submit)="Submit()"  >
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group">
-                                      <input  type="text" formControlName="firstName" class="form-control" name="firstName"   id="firstName" data-error="firstName" placeholder="Imię" required>
-                                        <validation-message  controlName="firstName" error="required" [isSubmitted]="false" [formGroup]="registerForm" >Field
-                                            "To kilometer" is required</validation-message>
+                                      <input  type="text" formControlName="firstName" class="form-control" name="firstName"   id="firstName"  placeholder="Imię" >
+                                        <validation-message  controlName="firstName" error="required" [isSubmitted]="isSubmitted"  >Imię jest wymagane</validation-message>
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12 ">
                                     <div class="form-group">
-                                      <input type="text"  formControlName="lastName" class="form-control" name="lastName" id="lastName" placeholder="Nazwisko" required>
+                                      <input type="text"  formControlName="lastName" class="form-control" name="lastName" id="lastName"  placeholder="Nazwisko" >
+                                      <validation-message  controlName="lastName" error="required" [isSubmitted]="isSubmitted" >Nazwisko jest wymagane</validation-message>
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <div class="form-group">
-                                      <input type="text"  formControlName="login"  class="form-control" name="Login" id="Login" placeholder="Login" required>
+                                      <input type="text"  formControlName="login"  class="form-control" name="Login" id="Login"  placeholder="Login" >
+                                      <validation-message  controlName="login" error="required" [isSubmitted]="isSubmitted" [formGroup]="registerForm" >Login jest wymagane</validation-message>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                   <div class="form-group">
-                                    <input type="password" formControlName="password"  class="form-control" name="password" id="password" value="" placeholder="Hasło" required>
-
+                                    <input type="password" formControlName="password"  class="form-control" name="password" id="password"  placeholder="Hasło" >
+                                    <validation-message  controlName="password" error="required" [isSubmitted]="isSubmitted" [formGroup]="registerForm" >Hasło jest wymagane</validation-message>
                                   </div>
                               </div>
 

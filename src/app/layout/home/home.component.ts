@@ -32,6 +32,14 @@ console.log('HomeComponent');
   ngAfterViewInit() {
     this.loading.set(false);
   }
+  routeType(type: number) {
+    switch (type) {
+      case 1: return 'Cardio';
+      case 2: return 'Yoga';
+      case 3: return 'Weight Lifting';
+      default: return 'Unknown';
+    }
+  }
 }
 @NgModule({
   declarations: [HomeComponent],

@@ -38,13 +38,15 @@
                     <div class="col-lg-6">
                         <div class="user-all-form">
                             <div class="contact-form">
-                                <h3 class="user-title"> Login</h3>
+                                <h3 class="user-title"> Logowanie</h3>
                                 <form [formGroup]="loginForm"  (submit)="logSubmit($event)">
                                     <div class="row">
                                         <div class="col-lg-12 ">
                                             <div class="form-group">
                                               <!-- <label for="Login" class="form-label">Login</label> -->
-                                              <input type="text" formControlName="login" class="form-control" name="Login" id="Login" placeholder="Login" required>
+                                              <input type="text" formControlName="login" class="form-control" name="Login" id="Login" placeholder="Login" >
+                                        <validation-message  controlName="login" error="required" [isSubmitted]="isSubmitted"  >Login jest wymagany</validation-message>
+
                                                 <!-- <input type="text" name="name" id="name" class="form-control" required data-error="Username Or Email Address*" placeholder="Username Or Email Address*"> -->
                                             </div>
                                         </div>
@@ -52,7 +54,9 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                               <!-- <label for="password" class="form-label">Hasło</label> -->
-                                              <input type="password" formControlName="password" class="form-control" name="password" id="password" value="" placeholder="Hasło" required>
+                                              <input type="password" formControlName="password" class="form-control" name="password" id="password" value="" placeholder="Hasło" >
+                                        <validation-message  controlName="password" error="required" [isSubmitted]="isSubmitted"  >Hasło jest wymagany</validation-message>
+
                                             </div>
                                         </div>
 

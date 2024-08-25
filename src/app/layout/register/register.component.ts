@@ -1,17 +1,17 @@
 import { Component, NgModule } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators ,ReactiveFormsModule} from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Logins, User } from '../../models/models.dto';
-import { UserService } from '../../service/user-service.service'; 
+import { UserService } from '../../service/user-service.service';
 import { CommonModule } from '@angular/common';
 import { ValidationMessageComponent, ValidationMessageModule } from '../validation-message/validation-message.component';
 
 @Component({
-  selector: 'app-register-dialog',
-  templateUrl: './register-dialog.component.html',
-  styleUrl: './register-dialog.component.scss'
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss'
 })
-export class RegisterDialogComponent {
-  registerForm: FormGroup= new FormGroup({});
+export class RegisterComponent {
+  registerForm: FormGroup = new FormGroup({});
   islogin: boolean = false;
   isSubmitted: boolean = false;
   constructor(private formBuilder: FormBuilder,
@@ -20,9 +20,9 @@ export class RegisterDialogComponent {
   ) {
   }
   ngOnInit(): void {
-    this.InitRegForm();
+    this.InitForm();
   }
-  InitRegForm() {
+  InitForm() {
     this.registerForm = this.formBuilder.group({
       login: [null, Validators.required],
       password: [null, Validators.required],
@@ -30,22 +30,21 @@ export class RegisterDialogComponent {
       lastName: [null, Validators.required]
     });
   }
- 
-    regSubmit() {
-       this.isSubmitted= true;
-      console.log(this.registerForm.valid);
+
+  Submit() {
+    this.isSubmitted = true;
+    console.log(this.registerForm.valid);
     if (this.registerForm.valid) {
-      var item = new User(this.registerForm.getRawValue());
+      var item = new User(this.registerForm.value);
       console.log(item);
 
-// later
-       this.userService.Add(item).subscribe(x=>{
+      this.userService.Add(item).subscribe(x => {
         console.log(x);
-        this.isSubmitted= false;
-       }
-        );
+        this.isSubmitted = false;
+      }
+      );
     }
-  } 
+  }
 
   // async Add(user: User) {
   //   try {
@@ -80,15 +79,15 @@ export class RegisterDialogComponent {
   // }
 
 
-}@NgModule({
+} @NgModule({
   declarations: [
-    RegisterDialogComponent
+    RegisterComponent
   ],
   imports: [
     CommonModule,
     ValidationMessageModule,
     ReactiveFormsModule
   ],
-  exports: [RegisterDialogComponent],
+  exports: [RegisterComponent],
 })
-export class LoginModule { }
+export class RegisterModule { }

@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { UserService } from './service/user-service.service';
 import { FormsModule } from '@angular/forms';
-import { LoginComponent } from './layout/login-dialog/login-dialog.component';
+import { LoginComponent } from './layout/login/login.component';
 import { UserReservationModule } from './layout/user-reservation/user-reservation.component';
 import { DialogService, DynamicDialogModule } from 'primeng/dynamicdialog';
 

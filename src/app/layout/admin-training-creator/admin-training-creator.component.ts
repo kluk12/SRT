@@ -1,5 +1,5 @@
-import { TreningService } from './../../service/TreningService';
-import { Component , signal, ChangeDetectorRef, NgModule, ViewChild } from '@angular/core';
+import { TreningService } from '../../service/TreningService';
+import { Component, signal, ChangeDetectorRef, NgModule, ViewChild } from '@angular/core';
 import * as bootstrap from 'bootstrap';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -9,8 +9,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 
-import {  TrainingGeneratorDialogComponent, TrainingGeneratorDialogModule } from '../training-generator/training-generator.component';
-import { DialogService,  DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { TrainingGeneratorDialogComponent, TrainingGeneratorDialogModule } from '../training-generator/training-generator.component';
+import { DialogService, DynamicDialogModule, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SelectButtonModule, SelectButtonOptionClickEvent } from 'primeng/selectbutton';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,22 +22,22 @@ import { DropdownModule } from 'primeng/dropdown';
 import { Button } from 'primeng/button';
 
 @Component({
-    selector: 'app-admin-reservation',
-    templateUrl: './admin-reservation.component.html',
-    styleUrl: './admin-reservation.component.scss'
-  })
-export class AdminReservationComponent {
-@ViewChild('modalbutton') modalbutton: Button;
+  selector: 'app-admin-training-creator',
+  templateUrl: './admin-training-creator.component.html',
+  styleUrl: './admin-training-creator.component.scss'
+})
+export class AdminTrainingCreatorComponent {
+  @ViewChild('modalbutton') modalbutton: Button;
 
   ref: DynamicDialogRef | undefined;
-  
+
   calendarVisible = signal<boolean>(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
-       interactionPlugin,
+      interactionPlugin,
       dayGridPlugin,
-       timeGridPlugin,
-       listPlugin,
+      timeGridPlugin,
+      listPlugin,
     ],
     headerToolbar: {
       left: 'prev,next today',
@@ -116,16 +116,17 @@ export class AdminReservationComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
 
-   // const title = prompt('Please enter a new title for your event');
+    // const title = prompt('Please enter a new title for your event');
     const calendarApi = selectInfo.view.calendar;
-    console.log(selectInfo,calendarApi);
-    this.formData.patchValue({ dateFrom: new Date(selectInfo.startStr),
+    console.log(selectInfo, calendarApi);
+    this.formData.patchValue({
+      dateFrom: new Date(selectInfo.startStr),
       dateTo: new Date(selectInfo.endStr)
-     });
+    });
     //     end: selectInfo.endStr,
     this.show(calendarApi);
 
-   // calendarApi.unselect(); // clear date selection
+    // calendarApi.unselect(); // clear date selection
 
     // if (title) {
     //   calendarApi.addEvent({
@@ -148,21 +149,21 @@ export class AdminReservationComponent {
     this.currentEvents.set(events);
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
-  show(calendarApi:CalendarApi) {
+  show(calendarApi: CalendarApi) {
     let myModal = document.getElementById('staticBackdrop')
     //const myModalAlternative = new bootstrap.Modal('#myModal')
     let modalToggle = document.getElementById('toggleMyModal');
-console.log(myModal,this.modalbutton,modalToggle);
-myModal
-myModal.addEventListener('shown.bs.modal', (x) => {
-console.log(x);
-})
+    console.log(myModal, this.modalbutton, modalToggle);
+    myModal
+    myModal.addEventListener('shown.bs.modal', (x) => {
+      console.log(x);
+    })
     // this.ref = this.dialogService.open(TrainingGeneratorDialogComponent, {
     //    // width: '400px',
     //     data: {
     //       calendarApi: calendarApi,
     //         // shuntingRequestId: shuntingRequestId,
-          
+
     //     },
     //     header: 'Dodaj/Edytuj trening ',
     //     styleClass: 'submanuver-add-edit-dialog',
@@ -181,15 +182,15 @@ console.log(x);
     //        // this.loadItems(this.lastTableLazyLoadEvent);
     // });
   }
-  formData: FormGroup= new FormGroup({});
+  formData: FormGroup = new FormGroup({});
   islogin: boolean = false;
-  LocationOptions= LocationOptions;
-  typeOptions: any[] = 
-  [
-    { name: 'Full Body Workout', value: 1 },
-    { name: 'Body& Mind', value: 2 },
-    { name: 'Fitness', value: 3 },
-];
+  LocationOptions = LocationOptions;
+  typeOptions: any[] =
+    [
+      { name: 'Full Body Workout', value: 1 },
+      { name: 'Body& Mind', value: 2 },
+      { name: 'Fitness', value: 3 },
+    ];
 
   ngOnInit(): void {
     this.InitForm();
@@ -207,38 +208,48 @@ console.log(x);
       locationId: [null],
     });
   }
- 
-    Submit() {
-     console.log(this.formData.valid,this.formData.getRawValue());
+
+  Submit() {
+    console.log(this.formData.valid, this.formData.getRawValue());
     if (this.formData.valid) {
-       var item = new Trening(this.formData.getRawValue());
+      var item = new Trening(this.formData.getRawValue());
       console.log(item);
 
-// later
-       this.treningService.Add(item).subscribe(x=>{
+      // later
+      this.treningService.Add(item).subscribe(x => {
         console.log(x);
-        
-       }
-        );
+
+      }
+      );
     }
-  } 
+  }
   onOptionClick($event: SelectButtonOptionClickEvent) {
     console.log($event);
     this.formData.patchValue({ title: $event.option.name });
-    }
-    event() {
-      console.log('event');
-    }
+  }
+  event() {
+    console.log('event');
+  }
 }
 @NgModule({
-  declarations: [AdminReservationComponent],
-  imports: [CommonModule, FullCalendarModule, CommonModule, TrainingGeneratorDialogModule, DynamicDialogModule,DropdownModule,
-    ReactiveFormsModule, SelectButtonModule, CalendarModule, InputTextModule, ValidationMessageModule,InputNumberModule],
+  declarations: [AdminTrainingCreatorComponent],
+  imports: [CommonModule,
+    FullCalendarModule,
+    CommonModule,
+    TrainingGeneratorDialogModule,
+    DynamicDialogModule,
+    DropdownModule,
+    ReactiveFormsModule,
+    SelectButtonModule,
+    CalendarModule,
+    InputTextModule,
+    ValidationMessageModule,
+    InputNumberModule],
   providers: [DialogService],
-  exports: [AdminReservationComponent ]
+  exports: [AdminTrainingCreatorComponent]
 
 })
-export class AdminReservationModule {}
+export class AdminTrainingCreatorModule { }
 
 
 let eventGuid = 0;
