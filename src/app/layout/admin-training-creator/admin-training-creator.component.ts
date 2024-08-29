@@ -17,7 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ValidationMessageModule } from "../validation-message/validation-message.component";
 import { InputNumber, InputNumberModule } from 'primeng/inputnumber';
-import { LocationOptions, Trening } from '../../models/models.dto';
+import { LocationOptions, Training } from '../../models/models.dto';
 import { DropdownModule } from 'primeng/dropdown';
 import { Button } from 'primeng/button';
 
@@ -212,7 +212,7 @@ export class AdminTrainingCreatorComponent {
   Submit() {
     console.log(this.formData.valid, this.formData.getRawValue());
     if (this.formData.valid) {
-      var item = new Trening(this.formData.getRawValue());
+      var item = new Training(this.formData.getRawValue());
       console.log(item);
 
       // later
