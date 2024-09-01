@@ -1,2 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
+
+
+:root {
+    --img-url-low: url(./assets/images/low.svg);
+    --img-url-medium: url(./assets/images/medium.svg);
+    --img-url-high: url(./assets/images/high.svg);
+    --img-url-extreme: url(/./assets/images/.extreme.svg);
+}
+
+.low, .medium, .high, .extreme {
+    padding: 3.2rem 0 0 0;
+    overflow: hidden;
+    height: 0;
+    width: 100%;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.low {
+    background-image: var(--img-url-low);
+}
+
+.medium {
+    background-image: var(--img-url-medium)
+}
+
+.high {
+    background-image: var(--img-url-high)
+}
+
+.extreme {
+    background-image: var(--img-url-extreme)
+}

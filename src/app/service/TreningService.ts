@@ -42,14 +42,14 @@ export class TreningService {
         });
   }
 
-  get(id: string){
+  get(id: number){
     return this.http.post<GenericResponse<Training>>(
         `${baseUrl}/Get`,
         {
           Id: id
         });
   }
-  delete(id: string){
+  delete(id: number){
     return this.http.post<GenericResponse<Training>>(
         `${baseUrl}/delete`,
         {

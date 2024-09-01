@@ -9,9 +9,10 @@ import { Routes } from "@angular/router";
 import { AppComponent } from "./app.component";
 import { AdminTrainingCreatorComponent } from './layout/admin-training-creator/admin-training-creator.component';
 import { ClassBodyMindComponent } from './layout/classbodymind/classbodymind';
+import { ClassFullBodyWorkoutComponent } from './layout/classFullBodyWorkout/classFullBodyWorkout';
 
 export const routes: Routes = [
-    { path: '', component: AppComponent },
+    { path: '', component: HomeComponent },
     { path: 'Register', component: RegisterComponent }, 
     { path: 'Login', component: LoginComponent }, 
     { path: 'AdminTrainingCreator', component: AdminTrainingCreatorComponent }, 
@@ -20,7 +21,11 @@ export const routes: Routes = [
     { path: 'BmiCalculator', component:BmiCalculatorComponent }, 
     { path: 'Home', component:HomeComponent }, 
      { path: 'Team', component:TeamComponent }, 
-     { path: 'ClassBodyMind', component:ClassBodyMindComponent }, 
+     { path: 'BodyMind', component:ClassBodyMindComponent }, 
+     { path: 'BodyMind/:id', component:ClassBodyMindComponent }, 
+     { path: 'FullBodyWorkout/:id', component:ClassFullBodyWorkoutComponent }, 
+     { path: 'FullBodyWorkout', component:ClassFullBodyWorkoutComponent }, 
+
      
-  
+     
 ];

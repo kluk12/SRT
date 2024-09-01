@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { UserService } from './service/user-service';
 
 @Component({
@@ -8,15 +8,19 @@ import { UserService } from './service/user-service';
 })
 export class AppComponent {
   title = 'Srt';
-  islogin: boolean = false;
+  islogin= signal<boolean>(false);
+   
   loginSubject$ = this.userService.loginSubject$.subscribe(x => {
-    this.islogin = x != null;
+    this.islogin.update(z=> x != null) ;
+    console.log("loginapp", x,this.islogin);
   });
   constructor(
     private userService: UserService,
   ){
   }
-
+  logout(){
+    this.userService.logout();
+  };
   OnInit(): void {
   }
 }

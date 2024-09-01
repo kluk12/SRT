@@ -1,4 +1,4 @@
-import { TrainingGeneratorDialogComponent } from './../training-generator/training-generator.component';
+import { TrainingGeneratorDialogComponent } from '../training-generator/training-generator.component';
 import { Component, computed, NgModule, signal } from '@angular/core';
 import { ValidationMessageModule } from '../validation-message/validation-message.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,11 +10,11 @@ import { ReservationService } from '../../service/reservation-service';
 import { TreningService } from '../../service/TreningService';
 
 @Component({
-  selector: 'app-class-body-mind',
-  templateUrl: './classbodymind.html',
-  styleUrl: './classbodymind.scss'
+  selector: 'app-class-full-body-workout',
+  templateUrl: './classFullBodyWorkout.html',
+  styleUrl: './classFullBodyWorkout.scss'
 })
-export class ClassBodyMindComponent {
+export class ClassFullBodyWorkoutComponent {
   type:number = 2;
   reservationForm: FormGroup;
   id= signal<number|null>(null);
@@ -111,7 +111,7 @@ export class ClassBodyMindComponent {
 }
 @NgModule({
   declarations: [
-    ClassBodyMindComponent
+    ClassFullBodyWorkoutComponent
   ],
   imports: [
     CommonModule,
@@ -120,4 +120,4 @@ export class ClassBodyMindComponent {
   ],
   providers: []
 })
-export class ClassBodyMindModule { }
+export class ClassFullBodyWorkoutModule { }

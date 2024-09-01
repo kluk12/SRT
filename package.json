@@ -24,12 +24,12 @@
     "@fullcalendar/interaction": "^6.1.10",
     "@fullcalendar/list": "^6.1.10",
     "@fullcalendar/timegrid": "^6.1.10",
-    "rxjs": "~7.8.0",
+    "aos": "^2.3.4",
     "bootstrap": "^5.3.3",
     "primeng": "^17.16.0",
+    "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
-    
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^17.3.6",

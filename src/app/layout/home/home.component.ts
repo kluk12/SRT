@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, NgModule, signal, ViewChild, viewChild } from '@angular/core';
 import { Data } from '@angular/router';
 import { HourlyActivities, Training, TrainingWeek } from '../../models/models.dto';
+import { co } from '@fullcalendar/core/internal-common';
 
 @Component({
   selector: 'app-home',
@@ -29,19 +30,21 @@ constructor(private treningService: TreningService) { }
     this.treningService.find().subscribe((x) => {
       if(x.success) {
         this.trainingWeek = x.data;
+        console.log(this.trainingWeek)
         this.trainingWeek.currentWeekItems = x.data.currentWeekItems;
         this.trainingWeek.currentWeekItems.forEach(x => {
-          var tmp = x.activities.shift();
-          if (tmp !== undefined) {
-            x.activities.push(tmp);
-          }
+          
+          // var tmp = x.activities.shift();
+          // if (tmp !== undefined) {
+          //   x.activities.push(tmp);
+          // }
         })
         this.trainingWeek.nextWeekItems = x.data.nextWeekItems;
         this.trainingWeek.nextWeekItems.forEach(x => {
-          var tmp = x.activities.shift();
-          if (tmp !== undefined) {
-            x.activities.push(tmp);
-          }
+          // var tmp = x.activities.shift();
+          // if (tmp !== undefined) {
+          //   x.activities.push(tmp);
+          // }
         })
         console.log(this.trainingWeek)
       }
@@ -51,14 +54,7 @@ constructor(private treningService: TreningService) { }
   ngAfterViewInit() {
     this.loading.set(false);
   }
-  routeType(type: number) {
-    switch (type) {
-      case 1: return 'Cardio';
-      case 2: return 'Yoga';
-      case 3: return 'Weight Lifting';
-      default: return 'Unknown';
-    }
-  }
+  
 
 
   private calculateWeekDates(): void {
@@ -82,7 +78,7 @@ constructor(private treningService: TreningService) { }
   }
 
   private getDayName(date: Date): string {
-    const dayNames = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
     return dayNames[date.getDay() === 0 ? 6 : date.getDay() - 1]; 
   }
   

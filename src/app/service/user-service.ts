@@ -44,7 +44,7 @@ export class UserService {
  
 
   logout(): void {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.setLogin(null);
   }
 

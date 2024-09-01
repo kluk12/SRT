@@ -1,5 +1,8 @@
 
-        <!-- Pre Loader  @preloader-->
+<script>
+    AOS.init();
+  </script>
+      <!-- Pre Loader  @preloader-->
          @if (loading()) {
         <div  id="preloader"> 
             <div id="preloader-area">
@@ -312,16 +315,7 @@
                                         <i class='flaticon-instagram'></i>
                                     </a>
                                 </li>
-                                <!-- <li>
-                                    <a href="https://twitter.com/" target="_blank">
-                                        <i class='flaticon-twitter' ></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="https://www.linkedin.com/" target="_blank">
-                                        <i class='flaticon-linkedin'></i>
-                                    </a>
-                                </li> -->
+                              
                             </ul>
                             <div class="content" style="padding: 15px 25px">
                                 <h3><a href="team.html">Paula Głód</a></h3>
@@ -343,8 +337,8 @@
         <div class="timetable-area timetable-area-bg ptb-100">
             <div class="container">
                 <div class="section-title text-center mb-45">
-                    <span>TIMETABLE</span>
-                    <h2 class="m-auto">Working Hours & Classes</h2>
+                    <span>Plan zajęć</span>
+                    <h2 class="m-auto">Godziny zajęć</h2>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -353,7 +347,7 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Hour</th>
+                                            <th>Godziny</th>
                                             <th>{{this.weekDates[0].day}} {{this.weekDates[0].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[1].day}} {{this.weekDates[1].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[2].day}} {{this.weekDates[2].date | date:'dd/MM'}}</th>
@@ -484,25 +478,6 @@
                         </div>
                     </div>
 
-                    <!-- <div class="col-lg-3 col-6">
-                        <div class="pricing-card">
-                            <h3>VIP Plan</h3>
-                            <span>Subscription</span>
-                            <h2>1000$</h2>
-                            <div class="monthly-pack">
-                                <h4>/Monthly</h4>
-                            </div>
-                            <ul>
-                                <li>5 Days In A Week</li>
-                                <li>01 Sweatshirt</li>
-                                <li>01 Bottle of Protein</li>
-                                <li>Access to Videos</li>
-                                <li>Weight Lifting</li>
-                                <li><del>Muscle Stretching</del></li>
-                            </ul>
-                            <a href="pricing.html" class="default-btn border-radius-5">Join Now <i class="flaticon-right-arrow"></i></a>
-                        </div>
-                    </div> -->
                 </div>
             </div>
         </div>
@@ -578,7 +553,7 @@
         </div>
         <!-- Training Area End -->
 
-        <!-- Blog Area -->
+        <!-- Blog Area
         <div class="blog-area pt-100 pb-70">
             <div class="container">
                 <div class="section-title text-center mb-45">
@@ -643,7 +618,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <!-- Blog Area End -->
 
         <!-- Footer Area -->

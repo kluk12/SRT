@@ -19,7 +19,7 @@
             <div class="mobile-responsive-menu">
                 <div class="logo">
                     <a href="/Home">
-                        <img src="assets/images/logos/small-white-logo.png" alt="logo">
+                        <img src="assets/images/logo.webp" width="50px" height="50px"  alt="logo">
                     </a>
                 </div>
                 <li class="nav-item">
@@ -27,6 +27,7 @@
                         Home
                     </a>
                 </li>
+                
             </div>
 
         </div>
@@ -37,7 +38,7 @@
         <div class="container-fluid">
             <nav class="navbar navbar-expand-md navbar-light ">
                 <a class="navbar-brand" href="/Home">
-                    <img src="assets/images/logos/logo.png" alt="Logo">
+                    <img src="assets/images/logo.webp" width="50px" height="50px" alt="Logo">
                 </a>
 
                 <div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent">
@@ -68,26 +69,26 @@
 
                         <li class="nav-item">
                             <a href="#" class="nav-link dropdown-toggle">
-                                Classes
+                                Rodzaje zajęć
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a href="classes.html" class="nav-link">
-                                        Classes
+                                    <a href="/BodyMind" class="nav-link">
+                                        Body&Mind
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="class-details.html" class="nav-link">
-                                        Class Details
+                                    <a href="/FullBodyWorkout" class="nav-link">
+                                        Full Body Workout
                                     </a>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
 
-                            <!-- <a href="/Home" class="nav-link">
-                                  Home
-                              </a> -->
+                            <a href="/AdminTrainingCreator" class="nav-link">
+                                  Generator Treningów
+                              </a>
                         </li>
                         <!-- <li class="nav-item">
                                 <a href="#" class="nav-link dropdown-toggle">
@@ -112,102 +113,13 @@
                                 </ul>
                             </li> -->
 
+                       
+
                         <!-- <li class="nav-item">
-                               <a href="#" class="nav-link dropdown-toggle active">
-                                    Pages 
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="about.html" class="nav-link">
-                                            About Us
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link dropdown-toggle">
-                                            Others
-                                            <i class='bx bx-chevron-down'></i>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li class="nav-item">
-                                                <a href="pricing.html" class="nav-link">
-                                                    Pricing Plan
-                                                </a>
-                                            </li>
-    
-                                            <li class="nav-item">
-                                                <a href="bmi-calculator.html" class="nav-link">
-                                                    BMI Calculator
-                                                </a>
-                                            </li>
-
-                                            <li class="nav-item">
-                                                <a href="our-timetable.html" class="nav-link">
-                                                    Our Timetable
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li> 
-
-                                    <li class="nav-item">
-                                        <a href="team.html" class="nav-link">
-                                            Team
-                                        </a>
-                                    </li>
-
-                                   
-
-                           
-
-                        
-                         <li class="nav-item">
-                                  <a href="#" class="nav-link dropdown-toggle">
-                                    Blog                                   </a>
-                                <ul class="dropdown-menu">
-                                    <li class="nav-item">
-                                        <a href="blog-1.html" class="nav-link">
-                                            Blog Grid
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="blog-2.html" class="nav-link">
-                                            Blog Left Sidebar 
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="blog-3.html" class="nav-link">
-                                            Blog Right Sidebar 
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="blog-details.html" class="nav-link">
-                                            Blog Details 
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="author.html" class="nav-link">
-                                            Author
-                                        </a>
-                                    </li>
-                                    
-                                    <li class="nav-item">
-                                        <a href="categories.html" class="nav-link">
-                                            Categories
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="tags.html" class="nav-link">
-                                            Tags
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> -->
-
-                        <li class="nav-item">
                             <a href="contact.html" class="nav-link">
                                 Contact Us
                             </a>
-                        </li>
+                        </li> -->
                         @if (islogin) {
                         <li class="nav-item">
                             <a href="/Login" class="nav-link">
@@ -220,7 +132,11 @@
                                 Register
                             </a>
                         </li>
-                        }
+                        } @else { <li (click)="logout()" class="nav-item">
+                            <a  class="nav-link">
+                                Wyloguj
+                            </a>
+                        </li>}
                     </ul>
 
                     <div class="others-options d-flex align-items-center">
@@ -288,44 +204,4 @@
 
 
 
-<!-- 
-<nav class="navbar navbar-expand-lg bsb-navbar bsb-navbar-hover bsb-navbar-caret bsb-tpl-navbar-float bsb-tpl-navbar-sticky" data-bs-theme="dark" data-bsb-stuck-bg="bg-black" data-bsb-stuck-theme="dark">
-<div class="container">
-
- 
-  <div class="offcanvas offcanvas-end bg-primary" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul id="bsb-tpl-navbar" class="navbar-nav justify-content-end flex-grow-1">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/Login">Home</a>
-        </li>
-    
-        <li class="nav-item ">
-          <a class="nav-link text-primary" href="/Reservation">Rezerwacjauser</a>
-        </li>    
-           <li class="nav-item ">
-          <a class="nav-link text-primary" href="/ReservationAdmin">Rezerwacja</a>
-        </li>
-        
-        <li class="nav-item ">
-          <a class="nav-link text-primary" href="/Login">Zaloguj</a>
-        </li>  <li class="nav-item ">
-          <a class="nav-link text-primary" href="/Register">Rejstracja</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="about.html">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-primary" href="contact.html">Contact</a>
-        </li> 
-      </ul>
-    </div>
-  </div>
-</div>
-</nav>
--->
 <router-outlet></router-outlet>

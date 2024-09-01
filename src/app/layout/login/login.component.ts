@@ -4,6 +4,7 @@ import { UserService } from '../../service/user-service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ValidationMessageModule } from '../validation-message/validation-message.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,6 +17,7 @@ export class LoginComponent {
   isSubmitted: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
+    private router: Router,
   ) {
 
   }
@@ -47,6 +49,7 @@ export class LoginComponent {
           if (token) {
             this.userService.setLogin(token);
             console.log("token",token)
+            this.router.navigate(['/Home']);
           }
         } else {
           console.log("null",x)
