@@ -29,40 +29,47 @@
 </div> -->
 <!-- Inner Banner End -->
 <!-- User Area -->
-@if (isReservede()) {
-<div class="">
-    <div class="">
-        <div class="">
-            <h3 class="user-title"> Rezerwacja</h3>
-            <form [formGroup]="reservationForm" (submit)="Submit($event)">
-                <div class="">
-                    <div class="col-5 ">
-                        <div class="form-group">
-                            <input type="text" formControlName="name" class="form-control" name="name" id="name"
-                                placeholder="Imie i nazwisko">
-                            <validation-message controlName="name" error="required" [isSubmitted]="isSubmitted">Imie i
-                                nazwisko jest wymagany</validation-message>
-                        </div>
-                    </div>
-                    <div class="col-5">
-                        <div class="form-group">
-                            <!-- <label for="password" class="form-label">Hasło</label> -->
-                            <input type="email" formControlName="email" class="form-control" name="email" id="email"
-                                placeholder="email">
-                            <validation-message controlName="email" error="required" [isSubmitted]="isSubmitted">Email
-                                jest wymagany</validation-message>
-                        </div>
-                    </div>
-                    <div class="col-lg-1 col-md-1">
-                        <button type="submit" class="btn btn-primary btn-lg ">Rezerwuj</button>
 
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@if (isReservede()) {
+    <!-- Appointment Area -->
+    <div class="appointment-area ptb-100">
+      <div class="container">
+          <form class="appointment-form" [formGroup]="reservationForm" (submit)="Submit($event)">
+              <div class="row align-items-center">
+                  <div class="col-lg-3">
+
+                          <div class="form-group">
+                          <label>Imie i nazwisko</label>
+
+                              <input type="text" formControlName="name" class="form-control" name="name" id="name"
+                                  placeholder="Imie i nazwisko">
+                              <validation-message controlName="name" error="required" [isSubmitted]="isSubmitted">Imie i
+                                  nazwisko jest wymagany</validation-message>
+                          </div>
+                       
+                  </div>
+
+                  <div class="col-lg-3">
+                      <div class="form-group">
+                          <label>Adres e-mail</label>
+                          <input type="email" formControlName="email" class="form-control" name="email" id="email"
+                              placeholder="email">
+                          <validation-message controlName="email " error="required" [isSubmitted]="isSubmitted">Adres e-mail</validation-message>
+                      </div>
+                  </div>
+
+                  <div class="col-lg-3">
+                      <button type="submit" class="default-btn">
+                          Rezerwuj
+                      </button>
+                  </div>
+              </div>
+          </form>
+      </div>
+
+  </div>
 }
+
 <!-- User Area End -->
 <!-- Class Details Area -->
 <div class="class-details-area pt-100 pb-70">

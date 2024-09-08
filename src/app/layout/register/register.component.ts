@@ -4,6 +4,7 @@ import { Logins, User } from '../../models/models.dto';
 import { UserService } from '../../service/user-service';
 import { CommonModule } from '@angular/common';
 import { ValidationMessageComponent, ValidationMessageModule } from '../validation-message/validation-message.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +17,11 @@ export class RegisterComponent {
   isSubmitted: boolean = false;
   constructor(private formBuilder: FormBuilder,
     private userService: UserService,
+    private routes: Router,
 
   ) {
   }
+  get f() { return this.registerForm.controls; }
   ngOnInit(): void {
     this.InitForm();
   }
@@ -28,20 +31,21 @@ export class RegisterComponent {
       password: [null, Validators.required],
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
-      email: [null, Validators.required,Validators.email],
+      email: [null,[Validators.required, Validators.email]],
     });
   }
 
   Submit() {
     this.isSubmitted = true;
-    console.log(this.registerForm.valid);
+    console.log(this.registerForm.valid,this.registerForm.validator);
     if (this.registerForm.valid) {
-      var item = new User(this.registerForm.value);
+      var item = new User(this.registerForm.getRawValue());
       console.log(item);
 
       this.userService.Add(item).subscribe(x => {
         console.log(x);
         this.isSubmitted = false;
+        this.routes.navigate(['/Login']);
       }
       );
     }

@@ -27,8 +27,9 @@
                                 </div>
                                 <div class="col-12">
                                   <div class="form-group">
-                                    <input type="text"  formControlName="email"  class="form-control" name="email" id="email"  placeholder="email" >
+                                    <input type="text"  formControlName="email"  class="form-control" name="email" id="email"  placeholder="Email" >
                                     <validation-message  controlName="email" error="required" [isSubmitted]="isSubmitted" [formGroup]="registerForm" >Email jest wymagane</validation-message>
+                                    <validation-message  controlName="email" error="email" [isSubmitted]="isSubmitted" [formGroup]="registerForm" >Nie poprawny adres email</validation-message>
                                   </div>
                               </div>
                                 <div class="col-12">

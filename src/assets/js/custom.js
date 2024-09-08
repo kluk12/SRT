@@ -74,7 +74,7 @@
             "<i class='flaticon-right-arrow'></i>"
         ]
     })
-
+    console.log("classes-slider");
     // Testimonials Slider
     $('.testimonials-slider').owlCarousel({
         loop: true,

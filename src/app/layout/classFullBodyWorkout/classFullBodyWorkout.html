@@ -28,42 +28,63 @@
     </div>
 </div> -->
 <!-- Inner Banner End -->
-<!-- User Area -->
-@if (isReservede()) {
-<div class="">
-    <div class="">
-        <div class="">
-            <h3 class="user-title"> Rezerwacja</h3>
-            <form [formGroup]="reservationForm" (submit)="Submit($event)">
-                <div class="">
-                    <div class="col-5 ">
-                        <div class="form-group">
-                            <input type="text" formControlName="name" class="form-control" name="name" id="name"
-                                placeholder="Imie i nazwisko">
-                            <validation-message controlName="name" error="required" [isSubmitted]="isSubmitted">Imie i
-                                nazwisko jest wymagany</validation-message>
-                        </div>
+
+@if (!isReservede()) {
+      <!-- Appointment Area -->
+      <div class="appointment-area ptb-100">
+        <div class="container">
+            <form class="appointment-form" [formGroup]="reservationForm" (submit)="Submit($event)">
+                <div class="row align-items-center">
+                    <div class="col-lg-3">
+
+                            <div class="form-group">
+                            <label>Imie i nazwisko</label>
+
+                                <input type="text" formControlName="name" class="form-control" name="name" id="name"
+                                    placeholder="Imie i nazwisko">
+                                <validation-message controlName="name" error="required" [isSubmitted]="isSubmitted">Imie i
+                                    nazwisko jest wymagany</validation-message>
+                            </div>
+                         
                     </div>
-                    <div class="col-5">
+
+                    <div class="col-lg-3">
                         <div class="form-group">
-                            <!-- <label for="password" class="form-label">Hasło</label> -->
+                            <label>Adres e-mail</label>
                             <input type="email" formControlName="email" class="form-control" name="email" id="email"
                                 placeholder="email">
-                            <validation-message controlName="email" error="required" [isSubmitted]="isSubmitted">Email
-                                jest wymagany</validation-message>
+                            <validation-message controlName="email " error="required" [isSubmitted]="isSubmitted">Adres e-mail</validation-message>
                         </div>
                     </div>
-                    <div class="col-lg-1 col-md-1">
-                        <button type="submit" class="btn btn-primary btn-lg ">Rezerwuj</button>
 
+                    <!-- <div class="col-lg-3">
+                        <div class="form-group">
+                            <label>Course</label>
+                            <select class="form-select form-control">
+                                <option selected>Select Course</option>
+                                <option value="1">Cardio Training</option>
+                                <option value="2">Fitness Training</option>
+                                <option value="3">Boxing Training</option>
+                            </select>
+                        </div>
+                    </div> -->
+
+                    <div class="col-lg-3">
+                        <button type="submit" class="default-btn">
+                            Rezerwuj
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
+
     </div>
-</div>
 }
-<!-- User Area End -->
+@else {  <div class="col-lg-3">
+    <button type="button" (click)="unReservation()" class="default-btn">
+        Rezerwuj
+    </button>
+</div>}
 <!-- Class Details Area -->
 <div class="class-details-area pt-100 pb-70">
     <div class="container">
@@ -186,7 +207,7 @@
             <div class="col-lg-4">
                 <div class="side-bar-area pl-20 pt-70">
                     <div class="side-bar-widget">
-                        <h3 class="title">All Classes</h3>
+                        <!-- <h3 class="title">All Classes</h3> -->
                         <div class="side-bar-categories">
                             <ul>
                                 <li>

@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../service/user-service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Reservation, Training } from '../../models/models.dto';
+import { Reservation, Training, User } from '../../models/models.dto';
 import { ReservationService } from '../../service/reservation-service';
 import { TreningService } from '../../service/TreningService';
 
@@ -21,6 +21,7 @@ export class ClassBodyMindComponent {
   training: Training | null = null;
   islogin= signal<boolean>(false);
   isSubmitted: boolean = false;
+  user: User | null = null;
   loginSubject$ = this.userService.loginSubject$.subscribe(x => {
     this.islogin.update(z=> x != null) ;
     console.log("ClassBodyMindloginSubject$", x,this.islogin());
@@ -34,11 +35,15 @@ export class ClassBodyMindComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {
-    const id = this.route.snapshot.params['id'];
+    const id = this.route.snapshot.queryParams['id'];
     if (id) {
       this.id.set(Number(id));
     }
-    console.log("isReservede",this.route.snapshot.params['id'],this.id(),this.isReservede());
+    console.log("isReservede",this.route.snapshot.queryParams['id'],this.id(),this.isReservede());
+    if (this.userService.isLogged()) {
+      this.user = this.userService.getToken();
+     
+    }
   }
 
   ngOnInit(): void {
@@ -94,7 +99,7 @@ export class ClassBodyMindComponent {
   }
   IsReserved() {
     var item = new Reservation(this.reservationForm.getRawValue());
-    this.reservationService.IsReserved(item).subscribe(x => {
+    this.reservationService.IsReserved(this.user?.id, this.type, this.id().valueOf(), this.training?.locationId ).subscribe(x => {
       if (x.data) {
         console.log("IsReserved", x.data);
       }

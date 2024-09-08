@@ -34,7 +34,7 @@ export class ReservationService {
 
   Add( name: string, email: string, userId: number, type: number, trainingId: number, locationId: number) {
     console.log("Add", name, email, userId, type, trainingId, locationId);
-    return this.http.post<GenericResponse<Reservation>>(
+    return this.http.post<GenericResponse<boolean>>(
         `${baseUrl}/Add`,
         {
           Name: name,
@@ -45,14 +45,14 @@ export class ReservationService {
           LocationId:locationId,
         });
   }
-  IsReserved(x:Reservation){
-    return this.http.post<GenericResponse<boolean>>(
+  IsReserved( userId: number, type: number, trainingId: number, locationId: number ) {
+    return this.http.post<GenericResponse<number>>(
         `${baseUrl}/IsReserved`,
         {
-          UserId: x.userId,
-          Type: x.type,
-          TrainingId: x.trainingId,
-          LocationId: x.locationId,
+          UserId: userId,
+          Type: type,
+          TrainingId: trainingId,
+          LocationId: locationId,
         });
   }
   
@@ -62,6 +62,14 @@ export class ReservationService {
         {
           Paid: paid,
           TrainingId: trainingId,
+        });
+  }
+  
+  unReservation(id: number) {
+    return this.http.post<GenericResponse<boolean>>(
+        `${baseUrl}/UnReservation`,
+        {
+          Id: id,
         });
   }
   

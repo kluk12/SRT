@@ -370,7 +370,7 @@
                                                 <span>{{ activity.dateFrom | date}}</span>
                                                 <div class="content">
                                                   <h4><i class="flaticon-user"></i> 8/10</h4>
-                                                  <button class="plus-icon">
+                                                  <button class="plus-icon" (click)="reservation(2)">
                                                     <i class="flaticon-plus"></i>
                                                   </button>
                                                 </div>
@@ -378,7 +378,7 @@
                                             </td>
                                           </tr>
 
-                                        <!-- <tr>
+                                        <tr>
                                             <td class="bg-color">
                                                 <div class="tbody-content">
                                                     <h3>Cardio</h3>
@@ -399,12 +399,12 @@
                                                     <span>6 AM - 7 AM</span>
                                                     <div class="content">
                                                         <h4><i class="flaticon-user"></i> 6/10</h4>
-                                                        <button class="plus-icon">
+                                                        <button class="plus-icon" (click)="reservation(2)">
                                                             <i class="flaticon-plus"></i>
                                                         </button>
                                                     </div>
                                                 </div>
-                                            </td> -->
+                                            </td>
                                      
                                     </tbody>
                                 </table>
@@ -706,8 +706,12 @@
 
 
         <!-- Jquery Min JS -->
-        <script src="assets/js/jquery.min.js"></script>
+        <!-- <script src="../../../assets/js/jquery.min.js"></script> -->
         <!-- Plugins JS -->
-        <script src="assets/js/plugins.js"></script>
+        <!-- <script src="../../../assets/js/plugins.js"></script> -->
         <!-- Custom  JS -->
-        <script src="assets/js/custom.js"></script>
+        <!-- <script src="../../../assets/js/custom.js"></script> -->
+        <!-- <script src="../../../assets/js/aos.js"></script> -->
+        <script>
+            // AOS.init();
+          </script>

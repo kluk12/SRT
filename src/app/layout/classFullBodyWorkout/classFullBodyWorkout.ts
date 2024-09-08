@@ -1,3 +1,4 @@
+import { User } from './../../models/models.dto';
 import { TrainingGeneratorDialogComponent } from '../training-generator/training-generator.component';
 import { Component, computed, NgModule, signal } from '@angular/core';
 import { ValidationMessageModule } from '../validation-message/validation-message.component';
@@ -19,14 +20,16 @@ export class ClassFullBodyWorkoutComponent {
   reservationForm: FormGroup;
   id= signal<number|null>(null);
   training: Training | null = null;
+  user: User | null = null;
   islogin= signal<boolean>(false);
   isSubmitted: boolean = false;
+  isReservede = signal<boolean>(false);
+  reservedId : number | null = null;
   loginSubject$ = this.userService.loginSubject$.subscribe(x => {
     this.islogin.update(z=> x != null) ;
     console.log("ClassBodyMindloginSubject$", x,this.islogin());
   });
-  isReservede= computed( () => { console.log("isReservede",this.id(),this.id()!=null);
-    return this.id()!=null  });
+  
   constructor(
     private treningService: TreningService,
     private userService: UserService,
@@ -34,11 +37,15 @@ export class ClassFullBodyWorkoutComponent {
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
   ) {
-    const id = this.route.snapshot.params['id'];
+    const id = this.route.snapshot.queryParams['id'];
     if (id) {
       this.id.set(Number(id));
     }
-    console.log("isReservede",this.route.snapshot.params['id'],this.id(),this.isReservede());
+    console.log("isReservede",this.route.snapshot.queryParams['id'],this.id(),this.isReservede());
+    if (this.userService.isLogged()) {
+      this.user = this.userService.getToken();
+     
+    }
   }
 
   ngOnInit(): void {
@@ -66,12 +73,15 @@ export class ClassFullBodyWorkoutComponent {
   }
 
   Submit(event: SubmitEvent) {
+
     this.isSubmitted = true;
-    console.log(this.reservationForm.valid, this.reservationForm.getRawValue());
+    const user = this.userService.getToken()
+    console.log(this.reservationForm.valid, this.reservationForm.getRawValue(),user);
     if (this.reservationForm.valid && this.id()) {
+     
       this.reservationService.Add( 
-        this.reservationForm.get('name').value,
-        this.reservationForm.get('email').value,
+       this.islogin?user.name: this.reservationForm.get('name').value,
+       this.islogin?user.email: this.reservationForm.get('email').value,
         this.userService.getToken()?.id,
         this.type,
         this.id().valueOf(),
@@ -88,26 +98,39 @@ export class ClassFullBodyWorkoutComponent {
       this.treningService.get(this.id()).subscribe(x => {
         if (x.data) {
           this.training = x.data;
-          console.log("get", x.data);
-        }
+          console.log("getTrening", x.data,x);
+          if (this.training) {
+           this.IsReserved();
+        }}
       });
   }
   IsReserved() {
-    var item = new Reservation(this.reservationForm.getRawValue());
-    this.reservationService.IsReserved(item).subscribe(x => {
-      if (x.data) {
-        console.log("IsReserved", x.data);
-      }
-    });
+    if (this.training && this.user) 
+      this.reservationService.IsReserved( this.user?.id, this.type, this.id().valueOf(), this.training?.locationId).subscribe(x => {
+        if (x.data) {
+          console.log("IsReserved", x.data,x);
+          this.isReservede.set(x.data!=null);
+          this.reservedId = x.data;
+        }
+      }) ;
   }
   IsPaid() {
     this.reservationService.IsPaid(this.id(), true).subscribe(x => {
       if (x.data) {
-        console.log("IsPaid", x.data);
+        console.log("IsPaid", x.data,x);
       }
     });
   }
-
+  unReservation() {
+    if (this.reservedId)
+    this.reservationService.unReservation(this.reservedId).subscribe(x => {
+      if (x.data) {
+        console.log("unReservation", x.data,x);
+        this.isReservede.set(!x.data);
+        this.reservedId = null;
+      }
+    });
+  }
 }
 @NgModule({
   declarations: [

@@ -1,7 +1,8 @@
+import { routes } from './../../app.routes';
 import { TreningService } from './../../service/TreningService';
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, signal, ViewChild, viewChild } from '@angular/core';
-import { Data } from '@angular/router';
+import { Data, Router } from '@angular/router';
 import { HourlyActivities, Training, TrainingWeek } from '../../models/models.dto';
 import { co } from '@fullcalendar/core/internal-common';
 
@@ -19,7 +20,9 @@ export class HomeComponent {
   ];
 loading=signal<boolean>(true);
 
-constructor(private treningService: TreningService) { }
+constructor(private treningService: TreningService,
+  private routes: Router
+) { }
 
   ngOnInit() {
     this.calculateWeekDates();
@@ -80,6 +83,11 @@ constructor(private treningService: TreningService) { }
   private getDayName(date: Date): string {
     const dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
     return dayNames[date.getDay() === 0 ? 6 : date.getDay() - 1]; 
+  }
+  reservation(id: number) {
+    this.routes.navigate(['/FullBodyWorkout'], { queryParams: { id: id } });
+    console.log("reservation",id);
+
   }
   
 }
