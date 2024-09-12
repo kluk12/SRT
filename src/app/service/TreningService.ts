@@ -29,6 +29,7 @@ export class TreningService {
   }
 
   Add(trening:Training){
+    console.log(trening);
     return this.http.post<GenericResponse<Training>>(
         `${baseUrl}/Add`,
         {

@@ -3,7 +3,7 @@ import { TreningService } from './../../service/TreningService';
 import { CommonModule } from '@angular/common';
 import { Component, NgModule, signal, ViewChild, viewChild } from '@angular/core';
 import { Data, Router } from '@angular/router';
-import { HourlyActivities, Training, TrainingWeek } from '../../models/models.dto';
+import { HourlyActivities, Training, TrainingWeek,TypeOptions,TypeOptionsPipe } from '../../models/models.dto';
 import { co } from '@fullcalendar/core/internal-common';
 
 @Component({
@@ -21,7 +21,7 @@ export class HomeComponent {
 loading=signal<boolean>(true);
 
 constructor(private treningService: TreningService,
-  private routes: Router
+  private routes: Router,
 ) { }
 
   ngOnInit() {
@@ -58,7 +58,10 @@ constructor(private treningService: TreningService,
     this.loading.set(false);
   }
   
-
+  TypeOptions(id: number): string {
+    return TypeOptions.find(x=>x.value ==id)?.name ?? "";
+  }
+  
 
   private calculateWeekDates(): void {
     const today = new Date();
@@ -94,7 +97,7 @@ constructor(private treningService: TreningService,
 @NgModule({
   declarations: [HomeComponent],
   exports: [HomeComponent],
-  imports: [CommonModule],
+  imports: [CommonModule ],
 })
 export class HomeModule {}
 export class tableItem {

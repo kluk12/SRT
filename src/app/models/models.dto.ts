@@ -1,4 +1,5 @@
 import { D, da } from "@fullcalendar/core/internal-common";
+import { Pipe, PipeTransform } from '@angular/core';
 
 export class Config {
     id: number;
@@ -44,6 +45,7 @@ export class Logins {
     }
 }
 export class Training {
+    id: number;
     dateFrom: Date | null;
     dateTo: Date | null;
     title: string | null;
@@ -53,6 +55,7 @@ export class Training {
     numberPeople: number | null;
     locationId: number | null;
     time: string | null;
+    reservationsCount: number | null;
 
     constructor(init?: Partial<Training>) {
         Object.assign(this, init);
@@ -130,7 +133,16 @@ export class TypeTrening {
 export const TypeOptions: TypeTrening[] =
     [
         new TypeTrening({ name: 'Full Body Workout', value: 1 }),
-        new TypeTrening({ name: 'Body& Mind', value: 2 }),
+        new TypeTrening({ name: 'Body & Mind', value: 2 }),
         new TypeTrening({ name: 'Fitness', value: 3 }),
     ];
 
+
+@Pipe({
+  name: 'typeOptionsPipe'
+})
+export class TypeOptionsPipe implements PipeTransform {
+  transform(id: Number): string {
+    return TypeOptions.find(x=>x.value ==id)?.name ?? ""; // Pretty print with 2 spaces
+  }
+}

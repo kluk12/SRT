@@ -201,7 +201,7 @@ export class AdminTrainingCreatorComponent {
       dateFrom: [new Date()],
       dateTo: [new Date(new Date().setHours(new Date().getHours() + 1))],
       title: [''],
-      typeId: [1],
+      type: [1],
       price: [20],
       textAddition: [''],
       numberPeople: [20],
