@@ -12,14 +12,17 @@ import { co } from '@fullcalendar/core/internal-common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
   weekDates: { day: string, date: Date }[] = [];
+  nextweekDates: { day: string, date: Date }[] = [];
   trainingWeek: TrainingWeek;
   hours = [
     // { time: '6 AM - 7 AM', activities: ['Cardio', '', 'Yoga', 'Cardio', '', '', 'Yoga'] },
     // { time: '7 AM - 8 AM', activities: ['', 'Weight Lifting', 'Yoga', '', 'Cardio', 'Yoga', ''] },
   ];
 loading=signal<boolean>(true);
-
+nextWeek=signal<boolean>(true);
+typeOptionsList = TypeOptions;
 constructor(private treningService: TreningService,
   private routes: Router,
 ) { }
@@ -27,28 +30,32 @@ constructor(private treningService: TreningService,
   ngOnInit() {
     this.calculateWeekDates();
     this.trainingWeek = {
+      Allitemscurrent: [],
+      AllitemsNext: [],
       currentWeekItems: [],
       nextWeekItems: []
     }
     this.treningService.find().subscribe((x) => {
       if(x.success) {
-        this.trainingWeek = x.data;
+        this.trainingWeek = new TrainingWeek(x.data);
+        this.trainingWeek.Allitemscurrent = x.data.currentWeekItems;
+        this.trainingWeek.AllitemsNext = x.data.nextWeekItems;
         console.log(this.trainingWeek)
         this.trainingWeek.currentWeekItems = x.data.currentWeekItems;
-        this.trainingWeek.currentWeekItems.forEach(x => {
+        // this.trainingWeek.currentWeekItems.forEach(x => {
           
-          // var tmp = x.activities.shift();
-          // if (tmp !== undefined) {
-          //   x.activities.push(tmp);
-          // }
-        })
+        //   // var tmp = x.activities.shift();
+        //   // if (tmp !== undefined) {
+        //   //   x.activities.push(tmp);
+        //   // }
+        // })
         this.trainingWeek.nextWeekItems = x.data.nextWeekItems;
-        this.trainingWeek.nextWeekItems.forEach(x => {
-          // var tmp = x.activities.shift();
-          // if (tmp !== undefined) {
-          //   x.activities.push(tmp);
-          // }
-        })
+        // this.trainingWeek.nextWeekItems.forEach(x => {
+        //   // var tmp = x.activities.shift();
+        //   // if (tmp !== undefined) {
+        //   //   x.activities.push(tmp);
+        //   // }
+        // })
         console.log(this.trainingWeek)
       }
     });
@@ -64,7 +71,7 @@ constructor(private treningService: TreningService,
   
 
   private calculateWeekDates(): void {
-    const today = new Date();
+    let today = new Date();
     const dayOfWeek = today.getDay(); // Sunday = 0, Monday = 1, ..., Saturday = 6
 
     // Get the start of the week (Monday)
@@ -81,17 +88,37 @@ constructor(private treningService: TreningService,
         date: date
       });
     }
-  }
+const newxtstartOfWeek = new Date(startOfWeek.setDate(startOfWeek.getDate() + 7));
+      for (let i = 0; i < 7; i++) {
+        const date = new Date(newxtstartOfWeek);
+        date.setDate(newxtstartOfWeek.getDate() + i);
+        this.nextweekDates.push({
+          day: this.getDayName(date),
+          date: date
+        });
+      }
+    }
+  
 
   private getDayName(date: Date): string {
     const dayNames = ['Poniedziałek', 'Wtorek', 'Środa', 'Czwartek', 'Piątek', 'Sobota', 'Niedziela'];
     return dayNames[date.getDay() === 0 ? 6 : date.getDay() - 1]; 
   }
+
   reservation(id: number) {
     this.routes.navigate(['/FullBodyWorkout'], { queryParams: { id: id } });
     console.log("reservation",id);
 
   }
+  filtrerType(id: number) {
+    this.trainingWeek.currentWeekItems = this.trainingWeek.Allitemscurrent?.filter(x => x.activities.find(y => y!=null && y?.type == id));
+    this.trainingWeek.nextWeekItems = this.trainingWeek.AllitemsNext.filter(x => x.activities.find(y =>y!=null&& y?.type == id));
+    console.log(this.trainingWeek.Allitemscurrent,this.trainingWeek.AllitemsNext,this.trainingWeek.currentWeekItems,id);
+    }
+    
+    nextWeekChenge(x: boolean) {
+      this.nextWeek.set(x);
+    }
   
 }
 @NgModule({

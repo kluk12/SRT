@@ -68,6 +68,8 @@ export class Training {
     }
 }
 export class TrainingWeek {
+    AllitemsNext: HourlyActivities[] = [];
+    Allitemscurrent: HourlyActivities[] = [];
     currentWeekItems: HourlyActivities[] = [];
     nextWeekItems: HourlyActivities[] = [];
     constructor(init?: Partial<TrainingWeek>) {
@@ -134,7 +136,7 @@ export const TypeOptions: TypeTrening[] =
     [
         new TypeTrening({ name: 'Full Body Workout', value: 1 }),
         new TypeTrening({ name: 'Body & Mind', value: 2 }),
-        new TypeTrening({ name: 'Fitness', value: 3 }),
+        // new TypeTrening({ name: 'Fitness', value: 3 }),
     ];
 
 

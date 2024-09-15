@@ -341,6 +341,27 @@
                     <h2 class="m-auto">Godziny zajęć</h2>
                 </div>
                 <div class="row">
+                    <div class="col-lg-10">
+                        @for (type of typeOptionsList; track $index) {
+                        <button type="button" class="default-btn" (click)="filtrerType(type.value)" >
+                            {{type.name}}
+                        </button>
+                    }
+                      
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="default-btn"  (click)="nextWeekChenge(true)">
+                            <i class="flaticon-left-arrow"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-1">
+                        <button type="button" class="default-btn" (click)="nextWeekChenge(false)">
+                            <i class="flaticon-right-arrow"></i>
+                        </button>
+                    </div>
+                    </div>
+
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="timetable-table-area">
                             <div class="timetable-table table-responsive">
@@ -348,6 +369,7 @@
                                     <thead>
                                         <tr>
                                             <th>Godziny</th>
+                                            @if (nextWeek()) {
                                             <th>{{this.weekDates[0].day}} {{this.weekDates[0].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[1].day}} {{this.weekDates[1].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[2].day}} {{this.weekDates[2].date | date:'dd/MM'}}</th>
@@ -355,10 +377,40 @@
                                             <th>{{this.weekDates[4].day}} {{this.weekDates[4].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[5].day}} {{this.weekDates[5].date | date:'dd/MM'}}</th>
                                             <th>{{this.weekDates[6].day}} {{this.weekDates[6].date | date:'dd/MM'}}</th>
+                                        }@else {
+                                            <th>{{this.nextweekDates[0].day}} {{this.nextweekDates[0].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[1].day}} {{this.nextweekDates[1].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[2].day}} {{this.nextweekDates[2].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[3].day}} {{this.nextweekDates[3].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[4].day}} {{this.nextweekDates[4].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[5].day}} {{this.nextweekDates[5].date | date:'dd/MM'}}</th>
+                                            <th>{{this.nextweekDates[6].day}} {{this.nextweekDates[6].date | date:'dd/MM'}}</th>
+                                        }
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @if (nextWeek()) {
                                         <tr *ngFor="let t of trainingWeek.currentWeekItems">
+                                            <td class="bg-color">
+                                              <div class="tbody-content">
+                                                <span>{{ t.time }}</span>
+                                              </div>
+                                            </td>
+                                            <td *ngFor="let activity of t.activities" [ngClass]="{'bg-color': activity}">
+                                              <div class="tbody-content" *ngIf="activity">
+                                                <h3>{{ TypeOptions(activity.type) }}</h3>
+                                                <span>{{ activity.dateFrom | date:'hh:mm'}}-{{ activity.dateTo | date:'hh:mm'}}</span>
+                                                <div class="content">
+                                                  <h4><i class="flaticon-user"></i> {{activity.reservationsCount}}/{{activity.numberPeople}}</h4>
+                                                  <button class="plus-icon" (click)="reservation(activity.id)">
+                                                    <i class="flaticon-plus"></i>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        }@else {
+                                            <tr *ngFor="let t of trainingWeek.nextWeekItems">
                                             <td class="bg-color">
                                               <div class="tbody-content">
                                                 <span>{{ t.time }}</span>
@@ -377,34 +429,8 @@
                                               </div>
                                             </td>
                                           </tr>
-
-                                        <!-- <tr>
-                                            <td class="bg-color">
-                                                <div class="tbody-content">
-                                                    <h3>Cardio</h3>
-                                                    <span>6 AM - 7 AM</span>
-                                                    <div class="content">
-                                                        <h4><i class="flaticon-user"></i> 8/10</h4>
-                                                        <button class="plus-icon">
-                                                            <i class="flaticon-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td></td>
-                                            <td class="bg-color">
-                                                <div class="tbody-content">
-                                                    <h3>Yoga</h3>
-                                                    <span>6 AM - 7 AM</span>
-                                                    <div class="content">
-                                                        <h4><i class="flaticon-user"></i> 6/10</h4>
-                                                        <button class="plus-icon" (click)="reservation(2)">
-                                                            <i class="flaticon-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </td> -->
+                                        }
+                                        
                                      
                                     </tbody>
                                 </table>

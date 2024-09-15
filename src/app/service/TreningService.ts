@@ -39,6 +39,7 @@ export class TreningService {
           NumberPeople: trening.numberPeople,
           LocationId: trening.locationId,
           Type: trening.type,
+          Title: trening.title,
           AdditionalInformation: trening.textAddition,
         });
   }
@@ -60,6 +61,12 @@ export class TreningService {
   find(){
     return this.http.post<GenericResponse<TrainingWeek>>(
         `${baseUrl}/Find`,
+        {
+        });
+  }
+  findAdmin(){
+    return this.http.post<GenericResponse<Training[]>>(
+        `${baseUrl}/FindAdmin`,
         {
         });
   }

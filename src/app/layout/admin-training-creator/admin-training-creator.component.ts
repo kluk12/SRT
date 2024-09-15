@@ -30,8 +30,8 @@ export class AdminTrainingCreatorComponent {
   @ViewChild('modalbutton') modalbutton: Button;
 
   ref: DynamicDialogRef | undefined;
-
-  calendarVisible = signal<boolean>(true);
+  calendarTrening: EventInput[]=[];
+  // calendarVisible = signal<boolean>(true);
   calendarOptions = signal<CalendarOptions>({
     plugins: [
       interactionPlugin,
@@ -45,7 +45,7 @@ export class AdminTrainingCreatorComponent {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'timeGridDay',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    initialEvents: this.calendarTrening, // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
@@ -86,6 +86,38 @@ export class AdminTrainingCreatorComponent {
   ngAfterViewInit() {
     this.addTouchHandlers();
   }
+  getEvents() {
+    this.treningService.findAdmin().subscribe(x => {
+      if (x.success) {
+        const trainings = x.data.map(data => new Training(data));
+        console.log(trainings);
+        // Uaktualnianie sygnału poprzez iterację
+        trainings.forEach(training => {
+          this.calendarTrening.push(  {
+            id: training?.id.valueOf().toString(),
+            title: training.title,
+            start: training.dateFrom,
+            end: training.dateTo,
+          } )
+          
+          // (currentEvents => [
+          //   ...currentEvents, // Kopia bieżących wydarzeń
+          //   {
+          //     id: training.id,
+          //     title: training.title,
+          //     start: training.dateFrom,
+          //     end: training.dateTo,
+          //   },
+          // ]);
+        });
+        this.calendarOptions.update((options) => ({
+          ...options,
+          initialEvents: this.calendarTrening,
+        }));
+        console.log(this.calendarTrening);
+      }
+    });
+  }
 
   addTouchHandlers() {
     const events = document.querySelectorAll('.fc-event');
@@ -103,9 +135,9 @@ export class AdminTrainingCreatorComponent {
       });
     });
   }
-  handleCalendarToggle() {
-    this.calendarVisible.update((bool) => !bool);
-  }
+  // handleCalendarToggle() {
+  //   this.calendarVisible.update((bool) => !bool);
+  // }
 
   handleWeekendsToggle() {
     this.calendarOptions.update((options) => ({
@@ -154,7 +186,6 @@ export class AdminTrainingCreatorComponent {
     //const myModalAlternative = new bootstrap.Modal('#myModal')
     let modalToggle = document.getElementById('toggleMyModal');
     console.log(myModal, this.modalbutton, modalToggle);
-    myModal
     myModal.addEventListener('shown.bs.modal', (x) => {
       console.log(x);
     })
@@ -194,6 +225,8 @@ export class AdminTrainingCreatorComponent {
 
   ngOnInit(): void {
     this.InitForm();
+    this.getEvents();
+
   }
   InitForm() {
     this.formData = this.formBuilder.group({
@@ -252,30 +285,31 @@ export class AdminTrainingCreatorComponent {
 export class AdminTrainingCreatorModule { }
 
 
-let eventGuid = 0;
-const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+// let eventGuid = 0;
+// const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
 
-export const INITIAL_EVENTS: EventInput[] = [
-  {
-    id: createEventId(),
-    title: 'All-day event',
-    start: TODAY_STR
-  },
-  {
-    id: createEventId(),
-    title: 'Timed event',
-    start: TODAY_STR + 'T00:00:00',
-    end: TODAY_STR + 'T03:00:00'
-  },
-  {
-    id: createEventId(),
-    title: 'Timed event',
-    start: TODAY_STR + 'T12:00:00',
-    end: TODAY_STR + 'T15:00:00'
-  }
-];
+// export const INITIAL_EVENTS: EventInput[] = [
+//   {
+//     id: createEventId(),
+//     title: 'All-day event',
+//     start: TODAY_STR
+//   },
+//   {
+//     id: createEventId(),
+//     title: 'Timed event',
+//     start: TODAY_STR + 'T00:00:00',
+//     end: TODAY_STR + 'T03:00:00',
+    
+//   },
+//   {
+//     id: createEventId(),
+//     title: 'Timed event',
+//     start: TODAY_STR + 'T12:00:00',
+//     end: TODAY_STR + 'T15:00:00'
+//   }
+// ];
 
-export function createEventId() {
-  return String(eventGuid++);
-}
+// export function createEventId() {
+//   return String(eventGuid++);
+// }
 
