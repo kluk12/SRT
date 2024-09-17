@@ -3,7 +3,7 @@ import { Component, signal, ChangeDetectorRef, NgModule, ViewChild } from '@angu
 import * as bootstrap from 'bootstrap';
 import { CommonModule } from '@angular/common';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi, EventInput } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, CalendarApi, EventInput, EventSourceApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -17,7 +17,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ValidationMessageModule } from "../validation-message/validation-message.component";
 import { InputNumber, InputNumberModule } from 'primeng/inputnumber';
-import { LocationOptions, Training } from '../../models/models.dto';
+import { LocationOptions, Training, TypeOptions } from '../../models/models.dto';
 import { DropdownModule } from 'primeng/dropdown';
 import { Button } from 'primeng/button';
 
@@ -28,40 +28,14 @@ import { Button } from 'primeng/button';
 })
 export class AdminTrainingCreatorComponent {
   @ViewChild('modalbutton') modalbutton: Button;
+  @ViewChild('calendar') calendarcomp: CalendarApi;
 
+  typeOptions = TypeOptions;
   ref: DynamicDialogRef | undefined;
   calendarTrening: EventInput[]=[];
+  calendarTreningSource: EventSourceApi[]=[];
   // calendarVisible = signal<boolean>(true);
-  calendarOptions = signal<CalendarOptions>({
-    plugins: [
-      interactionPlugin,
-      dayGridPlugin,
-      timeGridPlugin,
-      listPlugin,
-    ],
-    headerToolbar: {
-      left: 'prev,next today',
-      center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-    },
-    initialView: 'timeGridDay',
-    initialEvents: this.calendarTrening, // alternatively, use the `events` setting to fetch from a feed
-    weekends: true,
-    editable: true,
-    selectable: true,
-    selectMirror: true,
-    dayMaxEvents: true,
-    select: this.handleDateSelect.bind(this),
-    eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this),
-    //eventContent: this.handleEvents.bind(this),
-
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
-    */
-  });
+  calendarOptions = signal<CalendarOptions>( null);
   currentEvents = signal<EventApi[]>([]);
 
   constructor(private changeDetector: ChangeDetectorRef,
@@ -100,6 +74,7 @@ export class AdminTrainingCreatorComponent {
             end: training.dateTo,
           } )
           
+          //this.handleEvents(this.calendarTrening );
           // (currentEvents => [
           //   ...currentEvents, // Kopia bieżących wydarzeń
           //   {
@@ -110,11 +85,57 @@ export class AdminTrainingCreatorComponent {
           //   },
           // ]);
         });
-        this.calendarOptions.update((options) => ({
-          ...options,
-          initialEvents: this.calendarTrening,
-        }));
+   
         console.log(this.calendarTrening);
+        this.calendarOptions.set(
+        {
+          plugins: [
+            interactionPlugin,
+            dayGridPlugin,
+            timeGridPlugin,
+            listPlugin,
+          ],
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          },
+          initialView: 'timeGridDay',
+          initialEvents: this.calendarTrening, // alternatively, use the `events` setting to fetch from a feed
+          weekends: true,
+          editable: true,
+          selectable: true,
+          selectMirror: true,
+          dayMaxEvents: true,
+          select: this.handleDateSelect.bind(this),
+          eventClick: this.handleEventClick.bind(this),
+          eventsSet: this.handleEvents.bind(this),
+          //eventContent: this.handleEvents.bind(this),
+      
+          /* you can update a remote database when these fire:
+          eventAdd:
+          eventChange:
+          eventRemove:
+          */
+        }); 
+        // this.calendarOptions.update( (options) => (
+        //   {
+        //     ...options,
+         
+        //   initialView: 'timeGridDay',
+        //   initialEvents: this.calendarTrening, // alternatively, use the `events` setting to fetch from a feed
+        
+        //   select: this.handleDateSelect.bind(this),
+        //   eventClick: this.handleEventClick.bind(this),
+        //   eventsSet: this.handleEvents.bind(this),
+        //   //eventContent: this.handleEvents.bind(this),
+      
+        //   /* you can update a remote database when these fire:
+        //   eventAdd:
+        //   eventChange:
+        //   eventRemove:
+        //   */
+        // }));
       }
     });
   }
@@ -179,6 +200,10 @@ export class AdminTrainingCreatorComponent {
 
   handleEvents(events: EventApi[]) {
     this.currentEvents.set(events);
+    this.calendarOptions.update((options) => ({
+      ...options,
+      initialEvents: this.currentEvents,
+    }));
     this.changeDetector.detectChanges(); // workaround for pressionChangedAfterItHasBeenCheckedError
   }
   show(calendarApi: CalendarApi) {
@@ -216,16 +241,11 @@ export class AdminTrainingCreatorComponent {
   formData: FormGroup = new FormGroup({});
   islogin: boolean = false;
   LocationOptions = LocationOptions;
-  typeOptions: any[] =
-    [
-      { name: 'Full Body Workout', value: 1 },
-      { name: 'Body& Mind', value: 2 },
-      { name: 'Fitness', value: 3 },
-    ];
+ 
 
   ngOnInit(): void {
-    this.InitForm();
     this.getEvents();
+    this.InitForm();
 
   }
   InitForm() {
